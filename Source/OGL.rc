@@ -1,0 +1,7 @@
+#include"BMP_Header.h"
+ID_BITMAP_SMILEY BITMAP "../Media/Textures/Test/Smiley.bmp"
+ID_BITMAP_STONE BITMAP  "../Media/Textures/Test/Stone.bmp"
+
+
+
+
