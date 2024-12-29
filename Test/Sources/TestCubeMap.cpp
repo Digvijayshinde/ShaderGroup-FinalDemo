@@ -35,11 +35,11 @@ int Test::initializeTestCubeMap() {
 
 void Test::displayTestCubeMap() {
 
-	cubeMapShader->useCubeMapShaderProgram();
+	/*cubeMapShader->useCubeMapShaderProgram();
 
 	cubeMapShader->displayCubeMapShader(cubemapTexture);
 	renderes->renderCube();
-	cubeMapShader->unUseCubeMapShaderProgram();
+	cubeMapShader->unUseCubeMapShaderProgram();*/
 	
 }
 void Test::updateTestCubeMap() {

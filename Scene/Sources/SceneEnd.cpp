@@ -35,7 +35,7 @@ int Scene::initialiseSceneEnd() {
 	if (objmodelLoadingShader->initializeObjModelLoadingShaderProgram() != 0) {
 		return -1;
 	}
-	initializeStaticModel(&palace, "Media/Models/CastleOut/untitled.obj");
+	initializeStaticModel(&palace, "Media/Models/Arena/untitled.obj");
 	textures->storeTextureFromFile("Media\\Textures\\Test", "Stone.bmp", ID_BITMAP_STONE);
 
 	// Terrain initialization
@@ -122,7 +122,7 @@ void Scene::displaySceneEnd() {
 	atmosphericScatteringShader->displaySkyAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
 	atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();
 
-	modelMatrix = genrateModelMatrix(vec3(458.000854, 10000 + 6.6, 323.4001), vec3(0.000000, -35.200005, 0.000000),vec3(13.900005, 13.900005, 13.90000));
+	modelMatrix = genrateModelMatrix(vec3(458.000854, 10000 + 6.6, 323.4001), vec3(0.000000, -35.200005, 0.000000),vec3(5.900005, 5.900005, 5.90000));
 
 	objmodelLoadingShader->displayObjModelLoadingShader(&palace, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);

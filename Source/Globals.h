@@ -21,6 +21,7 @@ static Renderers* renderes = new Renderers();
 
 //Scene number tracking varaiable
 extern int currentSceneNumber;
+extern bool isDDSTextureClipped;
 
 //Shader enum
 enum
@@ -62,11 +63,11 @@ public:
 //In Debug mode imgui is actvated
 
 #define ENABLE_MODEL_PLACING 0
-#define SCENE_RENDER 0
+#define SCENE_RENDER 1
 #define TEST_RENDER 0
-#define DEBUG_MODE 0
-#define AUDIO_ENABLE 1
-#define ALL_SCENE_RENDER 1
+#define DEBUG_MODE 1
+#define AUDIO_ENABLE 0
+#define ALL_SCENE_RENDER 0
 
 //Scene number tracking varaiable
 extern int currentSceneNumber;

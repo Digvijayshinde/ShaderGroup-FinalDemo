@@ -49,8 +49,13 @@ void renderingImGui() {
 	ImGui::BulletText("Position: X = %.2f, Y = %.2f, Z = %.2f", freeCamera->position[0], freeCamera->position[1], freeCamera->position[2]);
 	ImGui::BulletText("Yaw: %.2f", freeCamera->yaw);
 	ImGui::BulletText("Pitch: %.2f", freeCamera->pitch);
-	ImGui::SliderFloat("Speed", &freeCamera->movementSpeed, 0.1, 100.0f);
+	ImGui::SliderFloat("Speed", &freeCamera->movementSpeed, 0.1, 2000.0f);
 	ImGui::SliderFloat("Sensitivity", &freeCamera->mouseSensitivity, 0.1, 1.0f);
+
+	ImGui::SliderFloat("TrsnsformationSpeed", &transformationVector.transformationSpeed, 0.1, 500.0f);
+
+	ImGui::BulletText("Transformation Position: X = %.2f, Y = %.2f, Z = %.2f", transformationVector.translationVector[0], transformationVector.translationVector[1], transformationVector.translationVector[2]);
+	ImGui::BulletText("Scale: X = %.2f, Y = %.2f, Z = %.2f", transformationVector.scaleVector[0], transformationVector.scaleVector[1], transformationVector.scaleVector[2]);
 
 	ImGui::Render();
 

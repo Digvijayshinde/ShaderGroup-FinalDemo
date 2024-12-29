@@ -19,7 +19,7 @@ private:
 	GLfloat rayleigh_constant = 0.0025f;
 	GLfloat scaleDepth = 0.25f;
 	GLfloat innerRadius = 10000.0f;
-	GLfloat outerRadius = 10250.0f;
+	GLfloat outerRadius = 10500.0f;
 	GLfloat eSun = 20.0f;
 	GLfloat g = -0.99f;
 

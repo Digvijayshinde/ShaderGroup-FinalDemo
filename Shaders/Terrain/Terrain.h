@@ -17,11 +17,12 @@ private:
 	GLfloat hightStep = 70.89f;
 	GLfloat scaleTerrain = 0.5f;
 	GLuint height_texture;
-
 public:
 	int initializeTerrainShaderProgram(const char* filename);
 	void useTerrainShaderProgram();
 	void displayTerrainShader(TextureManager* terrainTextures, mat4 modelMatrix,mat4,vec3,GLfloat,GLfloat);
 	void unUseTerrainShaderProgram();
 	void deleteShaderProgramObject();
+	vec3 lightPos = vec3(500.0, 10150.0, 500.0);
+
 };

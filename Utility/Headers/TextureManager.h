@@ -16,7 +16,7 @@ private:
 
 	GLuint loadSTBTextureFromFile(const char*);
 	GLuint loadBmpTextureFromFile(const char*, TCHAR imageResourceId[]);
-	GLuint loadDDSTextureFromFile(const char* );
+	GLuint loadDDSTextureFromFile(const char* , bool);
 
 public:
 	TextureManager();

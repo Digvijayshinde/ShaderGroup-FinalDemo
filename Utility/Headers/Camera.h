@@ -7,7 +7,7 @@
 
 const float YAW = 88.799950;
 const float PITCH = 0.0;
-const float SPEED = 250.2;
+const float SPEED = 450.2;
 const float SENSITIVITY = 0.2f;
 const float ZOOM = 45.0;
 

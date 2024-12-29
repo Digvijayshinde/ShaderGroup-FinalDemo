@@ -271,9 +271,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 		case 27:
 			PostQuitMessage(0);
 			break;
+		if (ALL_SCENE_RENDER)
+		{
 		case 'n':
 			currentSceneNumber++;
 			break;
+		}
 		if(ENABLE_MODEL_PLACING){
 		case 'X':
 			transformationVector.translationVector[0] += transformationVector.transformationSpeed;
@@ -534,22 +537,29 @@ int initialize(void) {
 #pragma region SceneRenderingInit
 #if SCENE_RENDER
 		switch (currentSceneNumber) {
-		case 1:
-			if (scene.initialiseSceneFirst() != 0) {
-				fprintf(gpFile, "failed\n");
-			}
-			break;
-		case 2:
-			if (scene.initialiseSceneSecond() != 0) {
-				fprintf(gpFile, "failed\n");
-			}
-			break;
 		case 0:
+			if (scene.initialisePreSceneOpening() != 0) {
+				fprintf(gpFile, "failed\n");
+			}
+			break;
+		case 1:
 			if (scene.initialiseSceneOpening() != 0) {
 				fprintf(gpFile, "failed\n");
 			}
 			break;
+		case 2:
+			if (scene.initialiseSceneFirst() != 0) {
+				fprintf(gpFile, "failed\n");
+			}
+			break;
+
 		case 3:
+			if (scene.initialiseSceneSecond() != 0) {
+				fprintf(gpFile, "failed\n");
+			}
+			break;
+
+		case 4:
 			if (scene.initialiseSceneEnd() != 0) {
 				fprintf(gpFile, "failed\n");
 			}
@@ -660,15 +670,18 @@ void display(float alpha,float elapsedtime) {
 	#if SCENE_RENDER || ALL_SCENE_RENDER:
 		switch (currentSceneNumber) {
 		case 0:
-			scene.displaySceneOpening();
+			scene.displayPreSceneOpening();
 			break;
 		case 1:
-			scene.displaySceneFirst();
+			scene.displaySceneOpening();
 			break;
 		case 2:
-			scene.displaySceneSecond();
+			scene.displaySceneFirst();
 			break;
 		case 3:
+			scene.displaySceneSecond();
+			break;
+		case 4:
 			scene.displaySceneEnd();
 			break;
 		}
@@ -708,15 +721,18 @@ void update(void) {
 #if SCENE_RENDER ||ALL_SCENE_RENDER
 	switch (currentSceneNumber) {
 	case 0:
-		scene.updateSceneOpening();
+		scene.updatePreSceneOpening();
 		break;
 	case 1:
-		scene.updateSceneFirst();
+		scene.updateSceneOpening();
 		break;
 	case 2:
-		scene.updateSceneSecond();
+		scene.updateSceneFirst();
 		break;
 	case 3:
+		scene.updateSceneSecond();
+		break;
+	case 4:
 		scene.updateSceneEnd();
 		break;
 }

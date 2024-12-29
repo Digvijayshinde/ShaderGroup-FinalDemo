@@ -38,5 +38,12 @@ public:
 	void displaySceneEnd();
 	void updateSceneEnd();
 	void unitializeSceneEnd();
+
+	// Pre Scene Opening
+	void WndProcForPreSceneOpening(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam);
+	int initialisePreSceneOpening();
+	void displayPreSceneOpening();
+	void updatePreSceneOpening();
+	void unitializePreSceneOpening();
 };
 

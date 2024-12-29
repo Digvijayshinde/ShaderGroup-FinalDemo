@@ -8,7 +8,7 @@ private:
 public:
 	int initializeCubeMapShaderProgram();
 	void useCubeMapShaderProgram();
-	void displayCubeMapShader(GLuint);
+	void displayCubeMapShader(GLuint,mat4,mat4);
 	void unUseCubeMapShaderProgram();
 	void deleteShaderProgramObject();
 };

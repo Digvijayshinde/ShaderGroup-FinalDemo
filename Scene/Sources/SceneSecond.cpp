@@ -8,6 +8,8 @@
 #include "../../Utility/Headers/AudioPlayer.h"
 #include "../../Shaders/WaterNew/Water.h"
 #include "../../../Utility/Headers/BezierCamera.h"
+#include"../../Shaders/Fire/Fire.h"
+static FireShader* fireShader = new FireShader();
 
 static AtmosphericScatteringShader* atmosphericScatteringShader = new AtmosphericScatteringShader();
 static TerrainShader* terrainShader = new TerrainShader();
@@ -33,6 +35,8 @@ static BezierCamera* bazierCameraForSceneSecond = new BezierCamera();
 static BezierCamera* bazierCameraForSceneSecondTwo = new BezierCamera();
 
 static int camNum = 0;
+
+
 
 void captureWaterReflectionAndRefractionForSecondScene();
 
@@ -115,29 +119,39 @@ int Scene::initialiseSceneSecond() {
 	if (textureShader->initializeTextureShaderProgram() != 0) {
 		return -1;
 	}
-
 	textures->storeTextureFromFile("Media\\Textures\\Test", "Stone.bmp", ID_BITMAP_STONE);
 
-	//transformationVector.translationVector = vec3(247.200897, 31.29, 249.101501f);
+	transformationVector.translationVector = vec3(247.200897, 10000+31.29, 249.101501f);
+
+	// Fire
+	if (fireShader->initializeFireShaderProgram() == -1)
+		return -1;
+
+	//clipping is requid for fire 
+	isDDSTextureClipped = true;
+	textures->storeTextureFromFile("Media\\Textures\\Fire", "fire.dds");
+	textures->storeTextureFromFile("Media\\Textures\\Fire", "alpha.dds");
+	isDDSTextureClipped = false;
+	textures->storeTextureFromFile("Media\\Textures\\Fire", "noise.dds");
 
 	//Bazier
 	std::vector<std::vector<float>> points;
-	points.push_back({ 692.259399,10030.511719,713.428284 });
-	points.push_back({ 818.425232,10035.007812,421.686584 });
-	points.push_back({454.610107,10033.365234,182.469864 });
+	points.push_back({ 647.467285,10035.205078,391.743439 });
+	points.push_back({ 309.008209,10038.392578,-43.265812 });
+	points.push_back({ 7.075944,10041.414062,-6.258910 });
 	//points.push_back({ -60.143433,10057.266602,157.501450 });
 
 	std::vector<float> yaw;
-	yaw.push_back(22.999971);
-	yaw.push_back(162.200027);
-	yaw.push_back(143.600494);
+	yaw.push_back(44.20085);
+	yaw.push_back(66.400);
+	yaw.push_back(61.001251);
 	//yaw.push_back(37.401318);
 
 
 	std::vector<float> pitch;
-	pitch.push_back(5.400010);
-	pitch.push_back(3.200012);
-	pitch.push_back(5.400011);
+	pitch.push_back(4.9999);
+	pitch.push_back(-0.000027);
+	pitch.push_back(3.999969);
 	//pitch.push_back(3.200027);
 
 	/*Camera Position = vec3(382.108398, 10030.618164, 202.619995)
@@ -230,6 +244,8 @@ void Scene::displaySceneSecond() {
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
+
+	modelDirectionLightStruct.directionLight_Direction = vec3(204.299652,10000+ 30.599987, 320.398865);
 	objmodelLoadingShader->displayObjModelLoadingShader(&hut, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -254,33 +270,48 @@ void Scene::displaySceneSecond() {
 	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
+	modelMatrix = genrateModelMatrix(vec3(21.500874, 10061.689453, 368.001343), vec3(9.299999, -9.299999, -176.700027), vec3(9.032018, 9.032018, 9.032018));
+	fireShader->useFireShaderProgram();
+	fireShader->displayFireShader(modelMatrix, viewMatrix, textures->getTexture("alpha"), textures->getTexture("fire"), textures->getTexture("noise"));
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	renderes->renderQuad();
+	glDisable(GL_BLEND);
+
 	captureWaterReflectionAndRefractionForSecondScene();
 	modelMatrix = genrateModelMatrix(vec3(36.6 +313.600616, 10000+ 28.10, 47.69 +232.900238), vec3(0.0, 0.0, 0.0), vec3(710.0,0.0,710.0));
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	fbos->draw_water(textureManager->getTexture("fftDudv"), textureManager->getTexture("fftNormal"), modelMatrix, viewMatrix, camPos);
+	glDisable(GL_BLEND);
 
-	modelMatrix = genrateModelMatrix(transformationVector.translationVector, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+	/*modelMatrix = genrateModelMatrix(transformationVector.translationVector, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	textureShader->useTextureShaderProgram();
 	textureShader->displayTextureShader(modelMatrix, viewMatrix, textures->getTexture("Stone"), 0);
 	renderes->renderSphere();
-	textureShader->unUseTextureShaderProgram();
+	textureShader->unUseTextureShaderProgram();*/
 
+
+
+	fireShader->unUseFireShaderProgram();
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 void Scene::updateSceneSecond() {
+	fireShader->setFrameTime(0.001);
 	if (!debugCamera)
 	{
 		if (bazierCameraForSceneSecond->time < 1.0f) {
-			bazierCameraForSceneSecond->time += 0.0003f;
+			bazierCameraForSceneSecond->time += 0.0002f;
 			bazierCameraForSceneSecond->update();
 		}
-		else
+		/*else
 		{
 			camNum = 1;
 			if (bazierCameraForSceneSecondTwo->time < 1.0f) {
 				bazierCameraForSceneSecondTwo->time += 0.0003f;
 				bazierCameraForSceneSecondTwo->update();
 			}
-		}
+		}*/
 	}
 }
 void Scene::unitializeSceneSecond() {
@@ -375,7 +406,27 @@ void captureWaterReflectionAndRefractionForSecondScene()
 	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	// ------------------------------ Reflection------------------------------------------
+	modelMatrix = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 + 390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
+	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+	numOfPointLight = 2;
+	objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelMatrix = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 52.899910, -15.699995 + 390.899), vec3(0.000000, -120.499992, 0.000000), vec3(7.600002, 7.600002, 7.600002));
+	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+	numOfPointLight = 2;
+	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelMatrix = genrateModelMatrix(vec3(21.500874, 10061.689453, 368.001343), vec3(9.299999, -9.299999, -176.700027), vec3(9.032018, 9.032018, 9.032018));
+	fireShader->useFireShaderProgram();
+	fireShader->displayFireShader(modelMatrix, viewMatrix, textures->getTexture("alpha"), textures->getTexture("fire"), textures->getTexture("noise"));
+
+	renderes->renderQuad();
+
+	// ------------------------------ Refraction------------------------------------------
 
 	fbos->unbindCurrentFrameBuffer(gWinWidth, gWinHeight);
 
@@ -405,7 +456,7 @@ void captureWaterReflectionAndRefractionForSecondScene()
 	fbos->bindRefractionFrameBuffer();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//modelMatrix = genrateModelMatrix(vec3(0.0, 0.00f, 0.0f), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+	modelMatrix = genrateModelMatrix(vec3(0.0, 0.00f, 0.0f), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	modelMatrix = genrateModelMatrix(vec3(-300.001526, 10000.0f, -300.101318), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	terrainShader->useTerrainShaderProgram();
 	terrainShader->displayTerrainShader(terrainTextures, modelMatrix, viewMatrix, camPos, 165, 1.35);
@@ -432,6 +483,26 @@ void captureWaterReflectionAndRefractionForSecondScene()
 	numOfPointLight = 2;
 	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelMatrix = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 + 390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
+	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+	numOfPointLight = 2;
+	objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelMatrix = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 52.899910, -15.699995 + 390.899), vec3(0.000000, -120.499992, 0.000000), vec3(7.600002, 7.600002, 7.600002));
+	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+	numOfPointLight = 2;
+	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelMatrix = genrateModelMatrix(vec3(21.500874, 10061.689453, 368.001343), vec3(9.299999, -9.299999, -176.700027), vec3(9.032018, 9.032018, 9.032018));
+	fireShader->useFireShaderProgram();
+	fireShader->displayFireShader(modelMatrix, viewMatrix, textures->getTexture("alpha"), textures->getTexture("fire"), textures->getTexture("noise"));
+	renderes->renderQuad();
+
 
 	fbos->unbindCurrentFrameBuffer(gWinWidth, gWinHeight);
 

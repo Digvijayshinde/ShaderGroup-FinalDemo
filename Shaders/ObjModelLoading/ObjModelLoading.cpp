@@ -44,9 +44,6 @@ void ObjModelLoadingShader::displayObjModelLoadingShader(StaticModel *staticMode
 
 
 	//directionLight
-	//modelDirectionLightStruct.directionLight_Direction = vec3(204.299652, 30.599987, 320.398865);
-	modelDirectionLightStruct.directionLight_Direction = vec3(-65.6998 + 144.600739, 10000 + 163.49, 230.00 + 160.899);
-
 	shaderProgramObject.setVec3("directionLight_Direction", modelDirectionLightStruct.directionLight_Direction);
 	shaderProgramObject.setVec3("directionLight_ambient", modelDirectionLightStruct.directionLight_ambient);
 	shaderProgramObject.setVec3("directionLight_diffuse", modelDirectionLightStruct.directionLight_diffuse);

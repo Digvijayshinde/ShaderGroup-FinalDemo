@@ -102,7 +102,7 @@ void Scene::displaySceneThird() {
 	modelMatrix = genrateModelMatrix(vec3(313.600616, 8.300001, 232.900238), vec3(0.0, 0.0, 0.0), vec3(600.0, 600.0, 600.0));
 	//fbos->draw_water(textureManager->getTexture("fftDudv"), textureManager->getTexture("fftNormal"),modelMatrix,viewMatrix,camPos);
 
-	modelMatrix = genrateModelMatrix(transformationVector.translationVector, vec3(0.0, 0.0, 0.0), vec3(10.0, 10.0, 10.0));
+	modelMatrix = genrateModelMatrix(vec3(24.266718,10055.152344,356.773499), vec3(0.0, 0.0, 0.0), vec3(10.0, 10.0, 10.0));
 	textureShader->useTextureShaderProgram();
 	textureShader->displayTextureShader(modelMatrix, freeCamera->getViewMatrix(), textures->getTexture("Stone"), 0);
 	renderes->renderSphere();

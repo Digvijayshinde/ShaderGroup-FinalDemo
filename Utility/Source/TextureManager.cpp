@@ -20,7 +20,7 @@ void TextureManager::storeTextureFromFile(std::string dir, std::string fileName,
 		std::string imageType = fileName.substr(pos + 1);
 
 		if (imageType.compare("dds") == 0)
-			textureCollection[fileNameWithoutExtension]=loadDDSTextureFromFile(fullFilePath.c_str());
+			textureCollection[fileNameWithoutExtension]=loadDDSTextureFromFile(fullFilePath.c_str(),isDDSTextureClipped);
 
 		else if (imageType.compare("bmp") == 0 && resourceId!=-1)
 			textureCollection[fileNameWithoutExtension]=loadBmpTextureFromFile(fullFilePath.c_str(),MAKEINTRESOURCE(resourceId));
@@ -101,11 +101,11 @@ GLuint TextureManager::loadBmpTextureFromFile(const char* fileName, TCHAR imageR
 	return texture;
 }
 
-GLuint TextureManager::loadDDSTextureFromFile(const char* fileName) {
+GLuint TextureManager::loadDDSTextureFromFile(const char* fileName, bool isDDSTextureClipped) {
 
 	imageData* image = NULL;
 
-	return  loadDDSTexture_Custom(fileName, image);
+	return  loadDDSTexture_Custom(fileName, image, isDDSTextureClipped);
 }
 
 GLuint TextureManager:: getTexture(std::string keyName) {

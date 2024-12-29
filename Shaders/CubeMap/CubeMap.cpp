@@ -18,18 +18,21 @@ void CubeMapShader::useCubeMapShaderProgram() {
 	glDepthMask(GL_FALSE);  //glDepthMask — enable or disable writing into the depth buffer
 
 }
-void CubeMapShader::displayCubeMapShader( GLuint textureID) {
+void CubeMapShader::displayCubeMapShader( GLuint textureID, mat4 modelMatrix, mat4 viewMatrix) {
 
 
 	//activating texture 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
 	shaderProgramObject.setInt("cubemap", 0);
+	shaderProgramObject.setMat4("u_modelMatrix", modelMatrix);
+	shaderProgramObject.setMat4("u_viewMatrix", viewMatrix);
+	shaderProgramObject.setMat4("u_projectionMatrix", prespectiveProjectionMatrix);
 
 }
 void CubeMapShader::unUseCubeMapShaderProgram() {
 	shaderProgramObject.unUseProgram();
-
+	glDepthMask(GL_TRUE);  
 }
 void CubeMapShader::deleteShaderProgramObject() {
 	shaderProgramObject.uninitializeShader();

@@ -72,8 +72,8 @@ void main()
     //vec3 normal = vec3(normalMapColor.r * 2.0f -1.0f,normalMapColor.b * 3.0f,normalMapColor.g * 2.0f - 1.0f);
 
 	vec4 normalMapColor = texture(sampler_textureDUDVMap, distortedTexCoords);
-	vec3 normal = normalize(vec3(normalMapColor.r * 2.0 - 1.0, normalMapColor.g * 2.0 - 1.0, normalMapColor.b * 2.0 - 1.0));
-
+	vec3 normal = normalize(vec3(normalMapColor.r * 2.0 - 1.0, normalMapColor.g * 2.0 - 1.0, normalMapColor.b*2.5 -1.0));
+	//vec3 normal = vec3(normalMapColor.r * 2.0f -1.0f,normalMapColor.b * 1.0f,normalMapColor.g * 2.0f - 1.0f);
 	normal = normalize(normal);
 
 	vec3 viewVector = normalize(toCameraVector);
@@ -87,8 +87,8 @@ void main()
 	//specular = pow(specular, shineDmper);
 	vec3 specularHighlights = lightColor * specular * reflectivity * clamp(waterDepth/5.0f,0.0f,1.0f);
 
-	vec3 baseWaterColor = vec3(0.0, 0.3, 0.3); // Parameterize for flexibility
-	vec4 waterMixColor = mix(texColorReflection, texColorRefraction, refractiveFactor);
+	vec3 baseWaterColor = vec3(0.0, 0.3, 0.6); // Parameterize for flexibility
+	vec4 waterMixColor = mix(texColorReflection, texColorRefraction, 0.2);
 	waterMixColor.rgb = mix(waterMixColor.rgb, baseWaterColor, 0.2);
 	waterMixColor.rgb += specularHighlights;
 	waterMixColor.a = clamp(waterDepth / 2.0, 0.0, 1.0);
