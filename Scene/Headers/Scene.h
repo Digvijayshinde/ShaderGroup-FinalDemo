@@ -11,6 +11,13 @@ public:
 	void updateSceneOpening();
 	void unitializeSceneOpening();
 
+	// Scene Final
+	void WndProcForSceneFinal(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam);
+	int initialiseSceneFinal();
+	void displaySceneFinal();
+	void updateSceneFinal();
+	void unitializeSceneFinal();
+
 	//scene 1
 	void WndProcForSceneOne(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam);
 	int initialiseSceneFirst();
@@ -45,5 +52,13 @@ public:
 	void displayPreSceneOpening();
 	void updatePreSceneOpening();
 	void unitializePreSceneOpening();
+
+	//  Scene Corridor
+	void WndProcForSceneCorridor(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam);
+	int initialiseSceneCorridor();
+	void displaySceneCorridor();
+	void updateSceneCorridor();
+	void unitializeSceneCorridor();
+
 };
 

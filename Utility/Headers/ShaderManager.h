@@ -19,7 +19,7 @@ public:
 		void useProgram();
 		void unUseProgram();
 
-		void setMat4(const std::string uniformString,const mat4 &value);
+		void setMat4(const std::string uniformString, const mat4& value, int instanceCount=1);
 		void setInt(const std::string &uniformString, const int value);
 		void setFloat(const std::string& uniformString, const float value);
 

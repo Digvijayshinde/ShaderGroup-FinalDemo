@@ -17,7 +17,7 @@ const char gszLogFileName[] = "CustomLog.txt";
 mat4 prespectiveProjectionMatrix;
 
 //Scene number tracking varaiable
-int currentSceneNumber = 3;
+int currentSceneNumber = 0;
 bool debugCamera = false;
 
 float gWinWidth;
@@ -35,6 +35,8 @@ int numOfPointLight;
 struct DirectionLight modelDirectionLightStruct;
 
 bool isDDSTextureClipped;
+
+
 
  mat4 genrateModelMatrix(vec3 translationValue, vec3 rotationValue, vec3 scaleValue) {
 

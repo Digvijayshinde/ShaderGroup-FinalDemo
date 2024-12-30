@@ -432,16 +432,26 @@ void TogglefullScreen() {
 
 }
 int  initializeAllScene() {
+	if (scene.initialisePreSceneOpening() != 0) {
+		fprintf(gpFile, "failed\n");
+	}
+	if (scene.initialiseSceneOpening() != 0) {
+		fprintf(gpFile, "failed\n");
+	}
 	if (scene.initialiseSceneFirst() != 0) {
 		fprintf(gpFile, "failed\n");
 	}
 	if (scene.initialiseSceneSecond() != 0) {
 		fprintf(gpFile, "failed\n");
 	}
-	if (scene.initialiseSceneOpening() != 0) {
+	
+	if (scene.initialiseSceneCorridor() != 0) {
 		fprintf(gpFile, "failed\n");
 	}
 	if (scene.initialiseSceneEnd() != 0) {
+		fprintf(gpFile, "failed\n");
+	}
+	if (scene.initialiseSceneFinal() != 0) {
 		fprintf(gpFile, "failed\n");
 	}
 	return 0;
@@ -558,9 +568,18 @@ int initialize(void) {
 				fprintf(gpFile, "failed\n");
 			}
 			break;
-
 		case 4:
+			if (scene.initialiseSceneCorridor() != 0) {
+				fprintf(gpFile, "failed\n");
+			}
+			break;
+		case 5:
 			if (scene.initialiseSceneEnd() != 0) {
+				fprintf(gpFile, "failed\n");
+			}
+			break;
+		case 6:
+			if (scene.initialiseSceneFinal() != 0) {
 				fprintf(gpFile, "failed\n");
 			}
 			break;
@@ -682,7 +701,13 @@ void display(float alpha,float elapsedtime) {
 			scene.displaySceneSecond();
 			break;
 		case 4:
+			scene.displaySceneCorridor();
+			break;
+		case 5:
 			scene.displaySceneEnd();
+			break;
+		case 6:
+			scene.displaySceneFinal();
 			break;
 		}
 	#endif
@@ -733,7 +758,13 @@ void update(void) {
 		scene.updateSceneSecond();
 		break;
 	case 4:
+		scene.updateSceneCorridor();
+		break;
+	case 5:
 		scene.updateSceneEnd();
+		break;
+	case 6:
+		scene.updateSceneFinal();
 		break;
 }
 

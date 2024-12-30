@@ -7,9 +7,14 @@
 #include "../../Shaders/CommomTexture/Texture.h"
 #include "../../Utility/Headers/AudioPlayer.h"
 #include "../../../Utility/Headers/BezierCamera.h"
+#include "../../Shaders/CubeMap/CubeMap.h"
 
 static AtmosphericScatteringShader* atmosphericScatteringShader = new AtmosphericScatteringShader();
-static StaticModel palace;
+extern StaticModel palace;
+static StaticModel pikeman;
+extern StaticModel chanakyaStanding;
+
+
 
 static ObjModelLoadingShader* objmodelLoadingShader = new ObjModelLoadingShader();;
 
@@ -21,6 +26,20 @@ static BezierCamera* bazierCameraForSceneEnd = new BezierCamera();
 static TerrainShader* terrainShader = new TerrainShader();
 static TextureManager* textures = new TextureManager();
 static TextureManager* terrainTextures = new TextureManager();
+static TextureShader* textureShader = new TextureShader();
+
+static CubeMapShader* cubeMapShader = new CubeMapShader();
+static unsigned int cubemapTexture;
+
+static std::vector<std::string> facesCubeMap
+{
+	"Media\\Textures\\CubeMapNight\\left.jpg",
+	"Media\\Textures\\CubeMapNight\\right.jpg",
+	"Media\\Textures\\CubeMapNight\\up.jpg",
+	"Media\\Textures\\CubeMapNight\\down.jpg",
+	"Media\\Textures\\CubeMapNight\\front.jpg",
+	"Media\\Textures\\CubeMapNight\\back.jpg"
+};
 
 
 void Scene::WndProcForSceneEnd(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
@@ -28,6 +47,7 @@ void Scene::WndProcForSceneEnd(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lPara
 }
 
 int Scene::initialiseSceneEnd() {
+	TextureManager textureManager;
 	// Atmosphere Initialization
 	if (atmosphericScatteringShader->initializeAtmosphericScatteringProgram() == -1)
 		return -1;
@@ -35,11 +55,18 @@ int Scene::initialiseSceneEnd() {
 	if (objmodelLoadingShader->initializeObjModelLoadingShaderProgram() != 0) {
 		return -1;
 	}
-	initializeStaticModel(&palace, "Media/Models/Arena/untitled.obj");
-	textures->storeTextureFromFile("Media\\Textures\\Test", "Stone.bmp", ID_BITMAP_STONE);
+	//initializeStaticModel(&palace, "Media/Models/CityWithCastle/city2.obj");
+	initializeStaticModel(&pikeman, "Media/Models/pikeman/pike.obj");
+	//initializeStaticModel(&chanakyaStanding, "Media/Models/chanakya model/chanakya holding stick.obj");
+
+
+	if (textureShader->initializeTextureShaderProgram() != 0) {
+		return -1;
+	}
+	textures->storeTextureFromFile("Media\\Textures\\Terrain", "darksand.png");
 
 	// Terrain initialization
-	if (terrainShader->initializeTerrainShaderProgram("Media\\Textures\\Terrain\\height.png") != 0) {
+	if (terrainShader->initializeTerrainShaderProgram("Media\\Textures\\Terrain\\heightmap.png") != 0) {
 		return -1;
 	}
 	else
@@ -47,35 +74,45 @@ int Scene::initialiseSceneEnd() {
 		fprintf(gpFile, "initialize initializeTerrainShaderProgram\n");
 	}
 	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "splat.png");
-	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "grass.png");
-	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "grass_normal.png");
+	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "grass5.png");
+	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "rock_normal.png");
 	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "rock.png");
 	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "rock_normal.png");
 	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "NormalMap.png");
 
+	// Cubemap
+	if (cubeMapShader->initializeCubeMapShaderProgram() != 0) {
+		return -1;
+	}
+	cubemapTexture = textureManager.loadCubeMapTexture(facesCubeMap);
+
 	//Bazier
 	std::vector<std::vector<float>> points;
-	points.push_back({ 210.140228,10013.521484,18.256680 });
-	points.push_back({ 237.203827,10018.827148,166.284622 });
-	points.push_back({ 232.422058,10026.605469,314.300812 });
-	//points.push_back({ 141.431335,10014.075195,165.468811 });
-	//points.push_back({ 139.737900,10016.585938,167.811462 });
+	points.push_back({ 1245.495483,46.946224,339.782562 });
+	points.push_back({ 570.993713,13.292456,127.925049 });
+	points.push_back({ 1073.805786,20.773108,-75.034012 });
+	points.push_back({ 1233.852173,20.773108,-290.075989 });
+	points.push_back({ 914.476135,1.972801,-291.110229 });
 
 	std::vector<float> yaw;
-	yaw.push_back(56.40);
+	yaw.push_back(-142.199585
+	);
 	yaw.push_back(42.80012);
-	yaw.push_back(13.00020);
-	//yaw.push_back(32.600090);
-	//yaw.push_back(25.79);
+	yaw.push_back(-97.999657);
+	yaw.push_back(-180.1990);
+	yaw.push_back(-182.598);
 
 
 	std::vector<float> pitch;
-	pitch.push_back(-0.400006);
-	pitch.push_back(3.199995
+	pitch.push_back(-7.400025
 	);
-	pitch.push_back(6.1999);
-	//pitch.push_back(-0.400062);
-	//pitch.push_back(-0.800019);
+	pitch.push_back(-0.800039
+
+	);
+	pitch.push_back(-4.200039
+	);
+	pitch.push_back(-1.800);
+	pitch.push_back(16.199);
 
 	bazierCameraForSceneEnd->initialize();
 	bazierCameraForSceneEnd->setBezierPoints(points, yaw, pitch);
@@ -85,10 +122,11 @@ int Scene::initialiseSceneEnd() {
 }
 
 void Scene::displaySceneEnd() {
+	mat4 modelMatrixArray[500];
 
 	if (initCameraForSceneEnd == 0) {
 		initCameraForSceneEnd = 1;
-		freeCamera->position = vec3(182.445862, 10000 + 17.948416, 243.554276);
+		freeCamera->position = vec3(182.445862, 17.948416, 243.554276);
 		freeCamera->front = vec3(0.999458, 0.027922, 0.017446);
 		freeCamera->yaw = 1.000035;
 		freeCamera->updateCameraVectors();
@@ -96,7 +134,7 @@ void Scene::displaySceneEnd() {
 	if (initSongForSceneEnd == 0) {
 		if (AUDIO_ENABLE) {
 			initSongForSceneEnd = 1;
-			//playSong(0);
+			//playSong(4);
 		}
 	}
 
@@ -114,23 +152,69 @@ void Scene::displaySceneEnd() {
 		camPos = bazierCameraForSceneEnd->getCameraPosition();
 	}
 
-	modelMatrix = genrateModelMatrix(vec3(261.800140, 0.0, 269.100159), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+	/*modelMatrix = genrateModelMatrix(vec3(261.800140, 0.0, 269.100159), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	atmosphericScatteringShader->useGroundAtmosphericScatteringProgram();
 	atmosphericScatteringShader->displayGroundAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
 	atmosphericScatteringShader->unUseGroundAtmosphericScatteringProgram();
 	atmosphericScatteringShader->useSkyAtmosphericScatteringProgram();
 	atmosphericScatteringShader->displaySkyAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
-	atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();
+	atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();*/
 
-	modelMatrix = genrateModelMatrix(vec3(458.000854, 10000 + 6.6, 323.4001), vec3(0.000000, -35.200005, 0.000000),vec3(5.900005, 5.900005, 5.90000));
-
-	objmodelLoadingShader->displayObjModelLoadingShader(&palace, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(0,-10000, 0);
+	modelMatrixArray[0] = genrateModelMatrix(vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0), vec3(5.900005, 5.900005, 5.90000));
+	objmodelLoadingShader->displayObjModelLoadingShader(&palace, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrix = genrateModelMatrix(vec3(-300.001526, 10000.0f, -300.101318), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+	modelDirectionLightStruct.directionLight_Direction = vec3(1500, 100.0, 0);
+	modelMatrixArray[0] = genrateModelMatrix(vec3(874.499878, 0.000000, -326.999878),vec3(-179.999893, 67.499962, 0.000000), vec3(-8.499990, -8.499990, -8.499990));
+	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaStanding, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	for (unsigned int i = 0; i < 200; i++) {
+			mat4 model = mat4(1.0f);
+
+			// Positioning the soldiers
+			float x = (i % 10) * 30.0f; // Columns
+			float z = (i / 10) * 30.0f; // Rows
+			//model = glm::translate(model, glm::vec3(x, 0.0f, z));
+
+			modelMatrixArray[i] = genrateModelMatrix(vec3(894.420227+x, 0.000000, -248.884033+z), vec3(180,90.0,0.0), vec3(-10.079, -10.079, -10.07));
+	}
+	modelDirectionLightStruct.directionLight_Direction = vec3(1500, 100.0, 0);
+	objmodelLoadingShader->displayObjModelLoadingShader(&pikeman, modelMatrixArray, viewMatrix, 200, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	for (unsigned int i = 0; i < 200; i++) {
+		mat4 model = mat4(1.0f);
+
+		// Positioning the soldiers
+		float x = (i % 10) * 30.0f; // Columns
+		float z = (i / 10) * 30.0f; // Rows
+		//model = glm::translate(model, glm::vec3(x, 0.0f, z));
+
+		modelMatrixArray[i] = genrateModelMatrix(vec3(894.420227 + x, 0.000000, -348.884033 - z), vec3(180, 90.0, 0.0), vec3(-10.079, -10.079, -10.07));
+	}
+	modelDirectionLightStruct.directionLight_Direction = vec3(1500, 100.0, 0);
+	objmodelLoadingShader->displayObjModelLoadingShader(&pikeman, modelMatrixArray, viewMatrix, 200, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelMatrix = genrateModelMatrix(vec3(-4592.000000, -20.000004, 1464.000244), vec3(0.000000, -269.099945, 0.000000), vec3(1.0, 1.0, 1.0));
 	terrainShader->useTerrainShaderProgram();
-	terrainShader->displayTerrainShader(terrainTextures, modelMatrix, viewMatrix, camPos,60,1.35);
+	terrainShader->lightPos = vec3(0.0, 0.0, 0.0);
+	terrainShader->displayTerrainShader(terrainTextures, modelMatrix, viewMatrix, camPos, 536, 5.15);
 	terrainShader->unUseTerrainShaderProgram();
+
+	modelMatrix = genrateModelMatrix(vec3(0,0,0), vec3(0.0, 0.0, 0.0), vec3(20000.0, 20000.0, 20000.0));
+	cubeMapShader->useCubeMapShaderProgram();
+	cubeMapShader->displayCubeMapShader(cubemapTexture, modelMatrix, viewMatrix);
+	renderes->renderCube();
+	cubeMapShader->unUseCubeMapShaderProgram();
+
+	modelMatrix = genrateModelMatrix(vec3(-50.0,-0.02,-50.0), vec3(-90.0,0.0,0.0), vec3(1500, 1500, 1500));
+	textureShader->useTextureShaderProgram();
+	textureShader->displayTextureShader(modelMatrix, viewMatrix, textures->getTexture("darksand"), 0);
+	renderes->renderQuad();
+	textureShader->unUseTextureShaderProgram();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

@@ -14,20 +14,20 @@ int ObjModelLoadingShader::initializeObjModelLoadingShaderProgram() {
 
 }
 
-void ObjModelLoadingShader::displayObjModelLoadingShader(StaticModel *staticModel,mat4 modelMatrix,mat4 viewMatrix,int modelEffectType) {
-
+void ObjModelLoadingShader::displayObjModelLoadingShader(StaticModel* staticModel, mat4* modelMatrix, mat4 viewMatrix, int instanceCount, int modelEffectType)
+{
 
 	shaderProgramObject.useProgram();
-	
+
 	//Common 
-	shaderProgramObject.setMat4("u_modelMatrix", modelMatrix);
+	shaderProgramObject.setMat4("u_modelMatrix", *(&modelMatrix[0]), instanceCount);
+	//glUniformMatrix4fv(glGetUniformLocation(shaderProgramObject.getShaderProgramObject(), "u_modelMatrix"), instanceCount, GL_FALSE, (GLfloat*)(&modelMatrix[0]));
 	shaderProgramObject.setMat4("u_viewMatrix", viewMatrix);
 	shaderProgramObject.setMat4("u_projectionMatrix", prespectiveProjectionMatrix);
 	shaderProgramObject.setInt("u_effectType", modelEffectType);
 
 	//PointLight
-
-	if (modelEffectType == MODEL_POINTLIGHT) {		
+	if (modelEffectType == MODEL_POINTLIGHT) {
 		shaderProgramObject.setInt("numOfPointLight", numOfPointLight);
 
 		for (int i = 0; i < numOfPointLight; i++) {									//   numOfPointLight  declare in global.h
@@ -42,7 +42,6 @@ void ObjModelLoadingShader::displayObjModelLoadingShader(StaticModel *staticMode
 		}
 	}
 
-
 	//directionLight
 	shaderProgramObject.setVec3("directionLight_Direction", modelDirectionLightStruct.directionLight_Direction);
 	shaderProgramObject.setVec3("directionLight_ambient", modelDirectionLightStruct.directionLight_ambient);
@@ -50,9 +49,8 @@ void ObjModelLoadingShader::displayObjModelLoadingShader(StaticModel *staticMode
 	shaderProgramObject.setVec3("directionLight_specular", modelDirectionLightStruct.directionLight_specular);
 	shaderProgramObject.setFloat("directionLight_shininess", modelDirectionLightStruct.directionLight_shininess);
 
-	staticModel->model->Draw(shaderProgramObject.getShaderProgramObject());
+	staticModel->model->Draw(shaderProgramObject.getShaderProgramObject(), instanceCount);
 	shaderProgramObject.unUseProgram();
-
 }
 
 void ObjModelLoadingShader::deleteShaderProgramObject() {

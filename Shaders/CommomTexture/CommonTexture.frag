@@ -12,5 +12,9 @@ void main(void)
 	FragColor=texture(u_textureSampler,a_out_texcoord);	
 	if (FragColor.a < 0.1)
 			discard;
+
+	float darknessFactor = 0.2; // Adjust this value to control how dark the color becomes
+    FragColor.rgb *= darknessFactor;
+
 	FragColor=vec4(FragColor.rgb,u_alpha);
 }

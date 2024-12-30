@@ -13,6 +13,7 @@ typedef struct StaticModel
 	}
 }StaticModel;
 
+
 int initializeStaticModel(StaticModel* pStaticModel, std::string const& path);
 int loadStaticModel(StaticModel* pStaticModel, std::string const& path);
 void uninitializeStaticModel(StaticModel* pStaticModel);

@@ -123,9 +123,9 @@ void ShaderManager::unUseProgram() {
 	glUseProgram(0);
 }
 
-void ShaderManager::setMat4(const std::string uniformString, const mat4& value) {
+void ShaderManager::setMat4(const std::string uniformString, const mat4& value, int instanceCount) {
 
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgramObject, uniformString.c_str()), 1, GL_FALSE, &value[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgramObject, uniformString.c_str()), instanceCount, GL_FALSE, &value[0][0]);
 }
 void ShaderManager::setInt(const std::string &uniformString, const int value) {
 	glUniform1i(glGetUniformLocation(shaderProgramObject,uniformString.c_str()),value);

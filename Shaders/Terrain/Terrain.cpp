@@ -62,7 +62,7 @@ void TerrainShader::displayTerrainShader(TextureManager* terrainTextures,mat4 mo
 	shaderProgramObject.setInt("scale_factor", 1);
 
 	//shaderProgramObject.setVec3("light_position", 114.318443, 10000+12.23, 189.78);
-	shaderProgramObject.setVec3("light_position", vec3(500.0,10150.0,500.0));
+	shaderProgramObject.setVec3("light_position", lightPos);
 
 	shaderProgramObject.setVec3("viewPosUniform", camPos);
 

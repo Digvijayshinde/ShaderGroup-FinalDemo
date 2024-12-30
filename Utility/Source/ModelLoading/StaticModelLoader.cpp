@@ -1,5 +1,9 @@
 #include "../../Headers/ModelLoading/StaticModelLoader.h"
 
+StaticModel palace;
+StaticModel palaceInterior;
+StaticModel chanakyaStanding;
+
 int initializeStaticModel(StaticModel* pStaticModel, string const& path)
 {
 	//code

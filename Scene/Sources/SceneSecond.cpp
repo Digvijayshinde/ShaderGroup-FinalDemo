@@ -16,6 +16,8 @@ static TerrainShader* terrainShader = new TerrainShader();
 static TextureManager* terrainTextures = new TextureManager();
 
 static StaticModel hut;
+static StaticModel hut2;
+
 static StaticModel tree;
 static StaticModel kund;
 static StaticModel chanakyaSit;
@@ -101,9 +103,10 @@ int Scene::initialiseSceneSecond() {
 		return -1;
 	}
 	initializeStaticModel(&hut, "Media/Models/Hut/newHut.obj");
+	initializeStaticModel(&hut2, "Media/Models/hut3_new/textures/hut3_new.obj");
 	initializeStaticModel(&tree, "Media/Models/Hut/tree.obj");
 	initializeStaticModel(&kund, "Media/Models/vedicFire/vedicFire.obj");
-	initializeStaticModel(&chanakyaSit, "Media/Models/ChanakyaSitting/ChankyaSitting.obj");
+	initializeStaticModel(&chanakyaSit, "Media/Models/chanakya model/chanakya pray .obj");
 
 
 	//Water initialization start
@@ -191,6 +194,7 @@ int Scene::initialiseSceneSecond() {
 	return 0;
 }
 void Scene::displaySceneSecond() {
+	mat4 modelMatrixArray[1];
 
 	if (initCameraForSceneSecond == 0) {
 		initCameraForSceneSecond = 1;
@@ -202,7 +206,7 @@ void Scene::displaySceneSecond() {
 	if (initSongForSceneSecond == 0) {
 		if (AUDIO_ENABLE) {
 			initSongForSceneSecond = 1;
-			playSong(1);
+			//playSong(1);
 		}
 	}
 	mat4 modelMatrix = mat4::identity();
@@ -240,34 +244,42 @@ void Scene::displaySceneSecond() {
 	atmosphericScatteringShader->displaySkyAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
 	atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();
 
-	modelMatrix = genrateModelMatrix(vec3(-65.6998+144.600739, 10000+ 63.49, 390.899), vec3(-2.400000, -203.401306, 1.800), vec3(0.5, 0.5, 0.5));
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-65.6998+144.600739, 10000+ 63.49, 390.899), vec3(-2.400000, -203.401306, 1.800), vec3(0.5, 0.5, 0.5));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-
 	modelDirectionLightStruct.directionLight_Direction = vec3(204.299652,10000+ 30.599987, 320.398865);
-	objmodelLoadingShader->displayObjModelLoadingShader(&hut, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	objmodelLoadingShader->displayObjModelLoadingShader(&hut, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrix = genrateModelMatrix(vec3( 144.600739, 10000 + 86.100113,390.899),vec3(0.0,0.0,0.0), vec3(1.0,1.0,1.0));
+	modelMatrixArray[0] = genrateModelMatrix(vec3(502,10046,1054), vec3(0.0,-184.99,0.0), vec3(156,156,156));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(204.299652, 10000 + 30.599987, 320.398865);
+	objmodelLoadingShader->displayObjModelLoadingShader(&hut2, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrix = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 +390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
+
+	modelMatrixArray[0] = genrateModelMatrix(vec3( 144.600739, 10000 + 86.100113,390.899),vec3(0.0,0.0,0.0), vec3(1.0,1.0,1.0));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrix = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 52.899910, -15.699995 + 390.899),vec3(0.000000, -120.499992, 0.000000), vec3(7.600002, 7.600002, 7.600002));
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 +390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 40.899910, -15.699995 + 390.899),vec3(0.000000, -120.499992, 0.000000), vec3(9.600002, 9.600002, 9.600002));
+	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+	numOfPointLight = 2;
+	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	modelMatrix = genrateModelMatrix(vec3(21.500874, 10061.689453, 368.001343), vec3(9.299999, -9.299999, -176.700027), vec3(9.032018, 9.032018, 9.032018));
@@ -333,6 +345,7 @@ void Scene::unitializeSceneSecond() {
 
 void captureWaterReflectionAndRefractionForSecondScene()
 {
+	mat4 modelMatrixArray[1];
 	void invertPitch();
 	mat4 modelMatrix = mat4::identity();
 	mat4 viewMatrix = mat4::identity();
@@ -381,8 +394,7 @@ void captureWaterReflectionAndRefractionForSecondScene()
 	terrainShader->displayTerrainShader(terrainTextures, modelMatrix, viewMatrix, camPos, 165, 1.35);
 	terrainShader->unUseTerrainShaderProgram();
 
-	// Atmosphere
-	modelMatrix = genrateModelMatrix(vec3(261.800140, 0.0f, 269.100159), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+	modelMatrix = genrateModelMatrix(vec3(261.800140, 0.0, 269.100159), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	atmosphericScatteringShader->useGroundAtmosphericScatteringProgram();
 	atmosphericScatteringShader->displayGroundAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
 	atmosphericScatteringShader->unUseGroundAtmosphericScatteringProgram();
@@ -390,39 +402,48 @@ void captureWaterReflectionAndRefractionForSecondScene()
 	atmosphericScatteringShader->displaySkyAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
 	atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();
 
-	// Hut Model
-	modelMatrix = genrateModelMatrix(vec3(-65.6998 + 144.600739, 10000 + 63.49, 230.00 + 160.899), vec3(-2.400000, -203.401306, 1.800), vec3(0.5, 0.5, 0.5));
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-65.6998 + 144.600739, 10000 + 63.49, 390.899), vec3(-2.400000, -203.401306, 1.800), vec3(0.5, 0.5, 0.5));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&hut, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(204.299652, 10000 + 30.599987, 320.398865);
+	objmodelLoadingShader->displayObjModelLoadingShader(&hut, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	//tree model
-	modelMatrix = genrateModelMatrix(vec3(144.600739, 10000 + 86.100113, 390.899), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+	modelMatrixArray[0] = genrateModelMatrix(vec3(502, 10046, 1054), vec3(0.0, -184.99, 0.0), vec3(156, 156, 156));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(204.299652, 10000 + 30.599987, 320.398865);
+	objmodelLoadingShader->displayObjModelLoadingShader(&hut2, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrix = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 + 390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
+
+	modelMatrixArray[0] = genrateModelMatrix(vec3(144.600739, 10000 + 86.100113, 390.899), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrix = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 52.899910, -15.699995 + 390.899), vec3(0.000000, -120.499992, 0.000000), vec3(7.600002, 7.600002, 7.600002));
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 + 390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrixArray, viewMatrix,1, MODEL_NO_EFFECT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 52.899910, -15.699995 + 390.899), vec3(0.000000, -120.499992, 0.000000), vec3(7.600002, 7.600002, 7.600002));
+	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+	numOfPointLight = 2;
+	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	modelMatrix = genrateModelMatrix(vec3(21.500874, 10061.689453, 368.001343), vec3(9.299999, -9.299999, -176.700027), vec3(9.032018, 9.032018, 9.032018));
 	fireShader->useFireShaderProgram();
 	fireShader->displayFireShader(modelMatrix, viewMatrix, textures->getTexture("alpha"), textures->getTexture("fire"), textures->getTexture("noise"));
+	renderes->renderQuad();
 
 	renderes->renderQuad();
 
@@ -456,13 +477,12 @@ void captureWaterReflectionAndRefractionForSecondScene()
 	fbos->bindRefractionFrameBuffer();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	modelMatrix = genrateModelMatrix(vec3(0.0, 0.00f, 0.0f), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	modelMatrix = genrateModelMatrix(vec3(-300.001526, 10000.0f, -300.101318), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	terrainShader->useTerrainShaderProgram();
 	terrainShader->displayTerrainShader(terrainTextures, modelMatrix, viewMatrix, camPos, 165, 1.35);
 	terrainShader->unUseTerrainShaderProgram();
 
-	modelMatrix = genrateModelMatrix(vec3(461.800140, 0.0f, 469.100159), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+	modelMatrix = genrateModelMatrix(vec3(261.800140, 0.0, 269.100159), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	atmosphericScatteringShader->useGroundAtmosphericScatteringProgram();
 	atmosphericScatteringShader->displayGroundAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
 	atmosphericScatteringShader->unUseGroundAtmosphericScatteringProgram();
@@ -470,32 +490,42 @@ void captureWaterReflectionAndRefractionForSecondScene()
 	atmosphericScatteringShader->displaySkyAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
 	atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();
 
-	modelMatrix = genrateModelMatrix(vec3(-65.6998 + 144.600739, 10000 + 63.49, 230.00 + 160.899), vec3(-2.400000, -203.401306, 1.800), vec3(0.5, 0.5, 0.5));
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-65.6998 + 144.600739, 10000 + 63.49, 390.899), vec3(-2.400000, -203.401306, 1.800), vec3(0.5, 0.5, 0.5));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&hut, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(204.299652, 10000 + 30.599987, 320.398865);
+	objmodelLoadingShader->displayObjModelLoadingShader(&hut, modelMatrixArray, viewMatrix, 1,MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrix = genrateModelMatrix(vec3(144.600739, 10000 + 86.100113, 390.899), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+	modelMatrixArray[0] = genrateModelMatrix(vec3(502, 10046, 1054), vec3(0.0, -184.99, 0.0), vec3(156, 156, 156));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(204.299652, 10000 + 30.599987, 320.398865);
+	objmodelLoadingShader->displayObjModelLoadingShader(&hut2, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrix = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 + 390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
+
+	modelMatrixArray[0] = genrateModelMatrix(vec3(144.600739, 10000 + 86.100113, 390.899), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrix = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 52.899910, -15.699995 + 390.899), vec3(0.000000, -120.499992, 0.000000), vec3(7.600002, 7.600002, 7.600002));
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 + 390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
 	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
 	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
 	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 52.899910, -15.699995 + 390.899), vec3(0.000000, -120.499992, 0.000000), vec3(7.600002, 7.600002, 7.600002));
+	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+	numOfPointLight = 2;
+	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrixArray, viewMatrix, 1,MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	modelMatrix = genrateModelMatrix(vec3(21.500874, 10061.689453, 368.001343), vec3(9.299999, -9.299999, -176.700027), vec3(9.032018, 9.032018, 9.032018));

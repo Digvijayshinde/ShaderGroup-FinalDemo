@@ -12,7 +12,6 @@
 static TextureShader* textureShader = new TextureShader();
 
 static AtmosphericScatteringShader* atmosphericScatteringShader = new AtmosphericScatteringShader();
-static StaticModel palace;
 
 static ObjModelLoadingShader* objmodelLoadingShader = new ObjModelLoadingShader();;
 
@@ -36,6 +35,8 @@ static std::vector<std::string> facesCubeMap
 	"Media\\Textures\\CubeMap\\front.jpg",
 	"Media\\Textures\\CubeMap\\back.jpg"
 };
+
+extern StaticModel palace;
 
 void Scene::WndProcForPreSceneOpening(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 	//code
@@ -73,15 +74,16 @@ int Scene::initialisePreSceneOpening() {
 	if (cubeMapShader->initializeCubeMapShaderProgram() != 0) {
 		return -1;
 	}
-
 	cubemapTexture = textureManager.loadCubeMapTexture(facesCubeMap);
+
 	//Bazier
 	std::vector<std::vector<float>> points;
-	points.push_back({963,0235,203 });
-	points.push_back({491,0100,-360 });
-	points.push_back({ 310,0201,-787 });
-	//points.push_back({ 180,10088,-289 });
-	//points.push_back({ 139.737900,10016.585938,167.811462 });
+	points.push_back({ -793.819824,179.511719,360.568756 });
+	points.push_back({ 19.139036,106.621033,202.988 });
+	points.push_back({ 648.807068,129.611618,143.889 });
+	points.push_back({ 615.762024,167.396851,-306.5449 });
+	points.push_back({ 600.323608,176.346024,-662.1439 });
+	//points.push_back({ 614.572144,178.287354,-649.010 });
 
 	// texture model
 	if (textureShader->initializeTextureShaderProgram() != 0) {
@@ -90,19 +92,22 @@ int Scene::initialisePreSceneOpening() {
 	textures->storeTextureFromFile("Media\\Textures\\Test", "Stone.bmp", ID_BITMAP_STONE);
 
 	std::vector<float> yaw;
-	yaw.push_back(207);
-	yaw.push_back(178);
-	yaw.push_back(134);
-	//yaw.push_back(-159);
-	//yaw.push_back(25.79);
+	yaw.push_back(-41.400436
+	);
+	yaw.push_back(-88.600);
+	yaw.push_back(-146.599);
+	yaw.push_back(-179.5991);
+	yaw.push_back(-214.9986);
+	//yaw.push_back(143.202);
 
 
 	std::vector<float> pitch;
-	pitch.push_back(-13.80);
-	pitch.push_back(-5.60);
-	pitch.push_back(-16.80);
-	//pitch.push_back(-6.60);
-	//pitch.push_back(-0.800019);
+	pitch.push_back(-3.6000);
+	pitch.push_back(-6.800);
+	pitch.push_back(-6.2000);
+	pitch.push_back(-6.800);
+	pitch.push_back(-9.80);
+	//pitch.push_back(-8.599);
 
 	bazierCameraForPreSceneOpening->initialize();
 	bazierCameraForPreSceneOpening->setBezierPoints(points, yaw, pitch);
@@ -112,6 +117,7 @@ int Scene::initialisePreSceneOpening() {
 }
 
 void Scene::displayPreSceneOpening() {
+	mat4 modelMatrixArray[1];
 
 	if (initCameraForPreSceneOpening == 0) {
 		initCameraForPreSceneOpening = 1;
@@ -123,7 +129,7 @@ void Scene::displayPreSceneOpening() {
 	if (initSongForPreSceneOpening == 0) {
 		if (AUDIO_ENABLE) {
 			initSongForPreSceneOpening = 1;
-			//playSong(0);
+			playSong(4);
 		}
 	}
 
@@ -149,9 +155,9 @@ void Scene::displayPreSceneOpening() {
 	//atmosphericScatteringShader->displaySkyAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
 	//atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();
 
-	modelDirectionLightStruct.directionLight_Direction = vec3(0.600739, 0000 + 163.49, 0.899);
-	modelMatrix = genrateModelMatrix(vec3(0.0, 0000 + 21, 0.0),vec3(0.0,0.0,0.0), vec3(5.900005, 5.900005, 5.90000));
-	objmodelLoadingShader->displayObjModelLoadingShader(&palace, modelMatrix, viewMatrix, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(0.600739, 10000 + 163.49, 0.899);
+	modelMatrixArray[0] = genrateModelMatrix(vec3(0.0, 0000 + 21, 0.0), vec3(0.0, 0.0, 0.0), vec3(5.900005, 5.900005, 5.90000));
+	objmodelLoadingShader->displayObjModelLoadingShader(&palace, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	modelMatrix = genrateModelMatrix(vec3(806.56+500.0, 0000.0f, 832.63+500.0), vec3(0.0, -180.30,0.0), vec3(1.0, 1.0, 1.0));

@@ -1,4 +1,11 @@
 Log file is open Successfully...
 initialize initializeTerrainShaderProgram
+initialize initializeTerrainShaderProgram
+Texture failed to load 
+initialize initializeTerrainShaderProgram
+Texture failed to load 
+initialize initializeTerrainShaderProgram
+initialize initializeTerrainShaderProgram
+Texture failed to load 
 Initialization successfully
 Log F	ile is Close Successfully...

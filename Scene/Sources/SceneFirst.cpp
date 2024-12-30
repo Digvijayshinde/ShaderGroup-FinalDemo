@@ -2,9 +2,11 @@
 #include "../../Scene/Headers/Scene.h"
 #include "../../Utility/Headers/ShaderManager.h"
 #include "../../Utility/Headers/VideoRendering.h"
+#include "../../Utility/Headers/AudioPlayer.h"
 
 //variable declaration
 static ShaderManager VideoRendershaderTexture;
+static int initSongForSceneSecond = 0;
 
 void Scene::WndProcForSceneOne(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 	//code
@@ -59,7 +61,13 @@ void Scene::displaySceneFirst() {
 	//code
 	mat4 modelMatrix = mat4::identity();
 	mat4 viewMatrix = mat4::identity();
-
+	
+	if (initSongForSceneSecond == 0) {
+		if (AUDIO_ENABLE) {
+			initSongForSceneSecond = 1;
+			playSong(1);
+		}
+	}
 	//modelMatrix = genrateModelMatrix(transformationVector.translationVector, transformationVector.rotationVector, transformationVector.scaleVector);
 
 	VideoRendershaderTexture.useProgram();

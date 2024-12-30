@@ -9,33 +9,33 @@
 #include "../../../Utility/Headers/BezierCamera.h"
 
 static AtmosphericScatteringShader* atmosphericScatteringShader = new AtmosphericScatteringShader();
-static StaticModel chanakya;
-static StaticModel dhananand;
+extern StaticModel chanakyaStanding;
+static StaticModel dhananandKneel;
 
 
 static ObjModelLoadingShader* objmodelLoadingShader = new ObjModelLoadingShader();
 static TextureShader* textureShader = new TextureShader();
 static TextureManager* textures = new TextureManager();
-static int initCameraForSceneOpening = 0;
-static int initSongForSceneOpening = 0;
+static int initCameraForSceneFinal = 0;
+static int initSongForSceneFinal = 0;
 
-static BezierCamera* bazierCameraForSceneOpening = new BezierCamera();
+static BezierCamera* bazierCameraForSceneFinal = new BezierCamera();
 
 extern StaticModel palaceInterior;
 
-void Scene::WndProcForSceneOpening(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
+void Scene::WndProcForSceneFinal(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 	//code
 }
 
-int Scene::initialiseSceneOpening() {
-	// Atmosphere Initialization
+int Scene::initialiseSceneFinal() {
+	mat4 modelMatrixArray[1];
+
 	if (objmodelLoadingShader->initializeObjModelLoadingShaderProgram() != 0) {
 		return -1;
 	}
 	initializeStaticModel(&palaceInterior, "Media/Models/palace/untitled.obj");
-
-	initializeStaticModel(&chanakya, "Media/Models/chanakya model/chanakya giving direction.obj");
-	initializeStaticModel(&dhananand, "Media/Models/Dhananand/dhananand.obj");
+	//initializeStaticModel(&chanakyaStanding, "Media/Models/chanakya model/chanakya holding stick.obj");
+	initializeStaticModel(&dhananandKneel, "Media/Models/dhananand_kneel/base.obj");
 
 
 	if (textureShader->initializeTextureShaderProgram() != 0) {
@@ -70,27 +70,27 @@ int Scene::initialiseSceneOpening() {
 	pitch.push_back(-7.799);
 	//pitch.push_back(-0.800019);
 
-	bazierCameraForSceneOpening->initialize();
-	bazierCameraForSceneOpening->setBezierPoints(points, yaw, pitch);
-	bazierCameraForSceneOpening->time = 0;
+	bazierCameraForSceneFinal->initialize();
+	bazierCameraForSceneFinal->setBezierPoints(points, yaw, pitch);
+	bazierCameraForSceneFinal->time = 0;
 
 	return 0;
 }
 
-void Scene::displaySceneOpening() {
+void Scene::displaySceneFinal() {
 	mat4 modelMatrixArray[1];
 
-	if (initCameraForSceneOpening == 0) {
-		initCameraForSceneOpening = 1;
-		freeCamera->position = vec3(182.445862,17.948416, 243.554276);
+	if (initCameraForSceneFinal == 0) {
+		initCameraForSceneFinal = 1;
+		freeCamera->position = vec3(182.445862, 17.948416, 243.554276);
 		freeCamera->front = vec3(0.999458, 0.027922, 0.017446);
 		freeCamera->yaw = 1.000035;
 		freeCamera->updateCameraVectors();
 	}
-	if (initSongForSceneOpening == 0) {
+	if (initSongForSceneFinal == 0) {
 		if (AUDIO_ENABLE) {
-			initSongForSceneOpening = 1;
-			playSong(0);
+			initSongForSceneFinal = 1;
+			playSong(6);
 		}
 	}
 
@@ -99,41 +99,34 @@ void Scene::displaySceneOpening() {
 	vec3 camPos;
 	if (debugCamera)
 	{
-		 viewMatrix = freeCamera->getViewMatrix();
-		 camPos = freeCamera->position;
+		viewMatrix = freeCamera->getViewMatrix();
+		camPos = freeCamera->position;
 	}
 	else
 	{
-		viewMatrix = bazierCameraForSceneOpening->getViewMatrix();
-		camPos = bazierCameraForSceneOpening->getCameraPosition();
+		viewMatrix = bazierCameraForSceneFinal->getViewMatrix();
+		camPos = bazierCameraForSceneFinal->getCameraPosition();
 	}
 
-	//modelMatrix = genrateModelMatrix(vec3(261.800140, 0.0, 269.100159), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
-	//atmosphericScatteringShader->useGroundAtmosphericScatteringProgram();
-	//atmosphericScatteringShader->displayGroundAtmosphericScatteringShader(modelMatrix,viewMatrix,camPos);
-	//atmosphericScatteringShader->unUseGroundAtmosphericScatteringProgram();
-	//atmosphericScatteringShader->useSkyAtmosphericScatteringProgram();
-	//atmosphericScatteringShader->displaySkyAtmosphericScatteringShader(modelMatrix,viewMatrix,camPos);
-	//atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();
-
 	modelMatrixArray[0] = genrateModelMatrix(vec3(247.200897, 16.80, 249.101501f), vec3(0.000000, -128.000000, 0.000000), vec3(0.300000, 0.300000, 0.300000));
-	modelPointLightStruct[0].pointLight_position = vec3(223.199829, 19.199 , 220.79);
-	modelPointLightStruct[1].pointLight_position = vec3(196.199829, 15.399 , 200.199);
-	modelPointLightStruct[2].pointLight_position = vec3(180.199829, 15.399 , 186.199);
-	modelPointLightStruct[3].pointLight_position = vec3(159.000015, 16.500002 , 171.000015);
-	modelPointLightStruct[4].pointLight_position = vec3(212.099731, 25.200003 , 212.799728);
+	modelPointLightStruct[0].pointLight_position = vec3(223.199829, 19.199, 220.79);
+	modelPointLightStruct[1].pointLight_position = vec3(196.199829, 15.399, 200.199);
+	modelPointLightStruct[2].pointLight_position = vec3(180.199829, 15.399, 186.199);
+	modelPointLightStruct[3].pointLight_position = vec3(159.000015, 16.500002, 171.000015);
+	modelPointLightStruct[4].pointLight_position = vec3(212.099731, 25.200003, 212.799728);
 	modelPointLightStruct[5].pointLight_position = vec3(transformationVector.translationVector[0], transformationVector.translationVector[1], transformationVector.translationVector[2]);
 	numOfPointLight = 6;
-	objmodelLoadingShader->displayObjModelLoadingShader(&palaceInterior, modelMatrixArray, viewMatrix,1, MODEL_POINTLIGHT);
+	objmodelLoadingShader->displayObjModelLoadingShader(&palaceInterior, modelMatrixArray, viewMatrix, 1, MODEL_POINTLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelMatrixArray[0] = genrateModelMatrix(vec3(247.200897 + -25.899933, 18.000006, 249.101501f - 29.799931), vec3(.000000, -126.099907, 0.000000), vec3(5.200000, 5.200000, 5.200000));
-	objmodelLoadingShader->displayObjModelLoadingShader(&dhananand, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(100, 50, 100);
+	modelMatrixArray[0] = genrateModelMatrix(vec3(223.199600, 11.599997, 207.799), vec3(537.199524, -221.200165, 0.000), vec3(-3.10, -3.10, -3.10));
+	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaStanding, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	modelDirectionLightStruct.directionLight_Direction = vec3(150, 50, 150);
-	modelMatrixArray[0] = genrateModelMatrix(vec3(166.299911, 9.499997, 176.39), vec3(2.899999, -98.899818, 179.79), vec3(-3.30, -3.30, -3.30));
-	objmodelLoadingShader->displayObjModelLoadingShader(&chanakya, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(100, 50, 100);
+	modelMatrixArray[0] = genrateModelMatrix(vec3(164.800201, 9.499997, 174.900), vec3(0.000000, 60.300037, 0.0), vec3(2.0));
+	objmodelLoadingShader->displayObjModelLoadingShader(&dhananandKneel, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	//modelMatrix = genrateModelMatrix(vec3(transformationVector.translationVector[0], transformationVector.translationVector[1], transformationVector.translationVector[2]), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
@@ -144,21 +137,21 @@ void Scene::displaySceneOpening() {
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
-void Scene::updateSceneOpening() {
+void Scene::updateSceneFinal() {
 	if (!debugCamera)
 	{
-		if (bazierCameraForSceneOpening->time < 1.0f) {
-			bazierCameraForSceneOpening->time += 0.00015f;
-			bazierCameraForSceneOpening->update();
+		if (bazierCameraForSceneFinal->time < 1.0f) {
+			bazierCameraForSceneFinal->time += 0.00045f;
+			bazierCameraForSceneFinal->update();
 		}
 	}
 }
-void Scene::unitializeSceneOpening() {
+void Scene::unitializeSceneFinal() {
 
 	atmosphericScatteringShader->deleteShaderProgramObject();
 	if (atmosphericScatteringShader)
 		delete atmosphericScatteringShader;
 
 	objmodelLoadingShader->deleteShaderProgramObject();
-	bazierCameraForSceneOpening->uninitialize();
+	bazierCameraForSceneFinal->uninitialize();
 }

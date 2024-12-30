@@ -7,6 +7,6 @@ private:
 	ShaderManager shaderProgramObject;
 public:
 	int initializeObjModelLoadingShaderProgram();
-	void displayObjModelLoadingShader(StaticModel* model, mat4 modelMatrix, mat4 viewMatrix,int  modelEffectType=MODEL_NO_EFFECT);
+	void displayObjModelLoadingShader(StaticModel* model, mat4 *modelMatrix, mat4 viewMatrix, int instanceCount, int  modelEffectType = MODEL_DIRECTIONLIGHT);
 	void deleteShaderProgramObject();
 };
