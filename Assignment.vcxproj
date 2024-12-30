@@ -157,9 +157,11 @@
     <ClCompile Include="Scene\Sources\SceneCorridor.cpp" />
     <ClCompile Include="Scene\Sources\SceneEnd.cpp" />
     <ClCompile Include="Scene\Sources\SceneFinal.cpp" />
+    <ClCompile Include="Scene\Sources\SceneMeet.cpp" />
     <ClCompile Include="Scene\Sources\SceneOpening.cpp" />
     <ClCompile Include="Scene\Sources\SceneSecond.cpp" />
     <ClCompile Include="Scene\Sources\SceneThird.cpp" />
+    <ClCompile Include="Scene\Sources\SceneTraining.cpp" />
     <ClCompile Include="Shaders\AtmosphericScattering\AtmosphericScattering.cpp" />
     <ClCompile Include="Shaders\Fire\Fire.cpp" />
     <ClCompile Include="Shaders\ObjModelLoading\ObjModelLoading.cpp" />

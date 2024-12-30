@@ -26,6 +26,8 @@ static TextureManager* terrainTextures = new TextureManager();
 static StaticModel corridor;
 static StaticModel smallCity;
 
+extern StaticModel palace;
+
 extern StaticModel chanakyaStanding;
 static TerrainShader* terrainShader = new TerrainShader();
 
@@ -42,8 +44,11 @@ int Scene::initialiseSceneCorridor() {
 	if (objmodelLoadingShader->initializeObjModelLoadingShaderProgram() != 0) {
 		return -1;
 	}
+	initializeStaticModel(&palace, "Media/Models/CityWithCastle/city2.obj");
+
 	initializeStaticModel(&corridor, "Media/Models/01- Ancient.Corridor/corridor_room.obj");
-	initializeStaticModel(&smallCity, "Media/Models/smallCity/base.obj");
+	//initializeStaticModel(&smallCity, "Media/Models/smallCity/base.obj");
+
 	initializeStaticModel(&chanakyaStanding, "Media/Models/chanakya model/chanakya holding stick.obj");
 
 	textures->storeTextureFromFile("Media\\Textures\\Test", "Stone.bmp", ID_BITMAP_STONE);
@@ -57,21 +62,6 @@ int Scene::initialiseSceneCorridor() {
 	textures->storeTextureFromFile("Media\\Textures\\Fire", "alpha.dds");
 	isDDSTextureClipped = false;
 	textures->storeTextureFromFile("Media\\Textures\\Fire", "noise.dds");
-
-	// Terrain initialization
-	if (terrainShader->initializeTerrainShaderProgram("Media\\Textures\\Terrain\\heightmap.png") != 0) {
-		return -1;
-	}
-	else
-	{
-		fprintf(gpFile, "initialize initializeTerrainShaderProgram\n");
-	}
-	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "splat.png");
-	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "grass5.png");
-	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "rock_normal.png");
-	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "rock.png");
-	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "rock_normal.png");
-	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "NormalMap.png");
 
 
 	//Bazier
@@ -162,9 +152,9 @@ void Scene::displaySceneCorridor() {
 		}
 	}
 
-	modelDirectionLightStruct.directionLight_Direction = vec3(0.600739, 50.00, 0.899);
-	modelMatrixArray[0] = genrateModelMatrix(vec3(78.50,10.60,-2.30), vec3(-2.400000, -0.200000, 0.00), vec3(4.80, 4.80, 4.80));
-	objmodelLoadingShader->displayObjModelLoadingShader(&smallCity, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(0.600739, 5000.00, 0.899);
+	modelMatrixArray[0] = genrateModelMatrix(vec3(78.200157, 11.900004, 2.3), vec3(0.0,-90.0,0.0), vec3(0.030));
+	objmodelLoadingShader->displayObjModelLoadingShader(&palace, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	modelDirectionLightStruct.directionLight_Direction = vec3(0.600739, 50.00, 0.899);

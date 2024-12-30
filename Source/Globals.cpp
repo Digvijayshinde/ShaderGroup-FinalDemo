@@ -17,7 +17,7 @@ const char gszLogFileName[] = "CustomLog.txt";
 mat4 prespectiveProjectionMatrix;
 
 //Scene number tracking varaiable
-int currentSceneNumber = 0;
+int currentSceneNumber = 6;
 bool debugCamera = false;
 
 float gWinWidth;

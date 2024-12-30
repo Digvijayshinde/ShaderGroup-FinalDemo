@@ -60,5 +60,18 @@ public:
 	void updateSceneCorridor();
 	void unitializeSceneCorridor();
 
+	//  Scene Meet
+	void WndProcForSceneMeet(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam);
+	int initialiseSceneMeet();
+	void displaySceneMeet();
+	void updateSceneMeet();
+	void unitializeSceneMeet();
+
+	//  Scene Training
+	void WndProcForSceneTraining(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam);
+	int initialiseSceneTraining();
+	void displaySceneTraining();
+	void updateSceneTraining();
+	void unitializeSceneTraining();
 };
 

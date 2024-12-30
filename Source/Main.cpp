@@ -569,16 +569,26 @@ int initialize(void) {
 			}
 			break;
 		case 4:
-			if (scene.initialiseSceneCorridor() != 0) {
+			if (scene.initialiseSceneMeet() != 0) {
 				fprintf(gpFile, "failed\n");
 			}
 			break;
 		case 5:
-			if (scene.initialiseSceneEnd() != 0) {
+			if (scene.initialiseSceneTraining() != 0) {
 				fprintf(gpFile, "failed\n");
 			}
 			break;
 		case 6:
+			if (scene.initialiseSceneCorridor() != 0) {
+				fprintf(gpFile, "failed\n");
+			}
+			break;
+		case 7:
+			if (scene.initialiseSceneEnd() != 0) {
+				fprintf(gpFile, "failed\n");
+			}
+			break;
+		case 8:
 			if (scene.initialiseSceneFinal() != 0) {
 				fprintf(gpFile, "failed\n");
 			}
@@ -701,12 +711,18 @@ void display(float alpha,float elapsedtime) {
 			scene.displaySceneSecond();
 			break;
 		case 4:
-			scene.displaySceneCorridor();
+			scene.displaySceneMeet();
 			break;
 		case 5:
-			scene.displaySceneEnd();
+			scene.displaySceneTraining();
 			break;
 		case 6:
+			scene.displaySceneCorridor();
+			break;
+		case 7:
+			scene.displaySceneEnd();
+			break;
+		case 8:
 			scene.displaySceneFinal();
 			break;
 		}
@@ -758,12 +774,18 @@ void update(void) {
 		scene.updateSceneSecond();
 		break;
 	case 4:
-		scene.updateSceneCorridor();
+		scene.updateSceneMeet();
 		break;
 	case 5:
-		scene.updateSceneEnd();
+		scene.updateSceneTraining();
 		break;
 	case 6:
+		scene.updateSceneCorridor();
+		break;
+	case 7:
+		scene.updateSceneEnd();
+		break;
+	case 8:
 		scene.updateSceneFinal();
 		break;
 }
