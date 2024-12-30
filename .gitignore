@@ -54,10 +54,6 @@ bld/
 *.natvis
 
 # Solution and project files
-*.sln
-*.vcxproj*
-*.vcproj*
-*.filters
 
 # Build Directories
 [Bb]uild/

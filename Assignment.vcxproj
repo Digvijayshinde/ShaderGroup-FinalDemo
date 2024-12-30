@@ -1,0 +1,615 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{14a44fd9-015a-4457-85b7-41aaf1a40138}</ProjectGuid>
+    <RootNamespace>Assignment</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Chanakya</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.6.props" />
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Libraries\assimp\include;C:\glew-2.1.0\include;$(ProjectDir)Libraries\ffmpeg\include;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\include;$(ProjectDir)Libraries\AL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>C:\glew-2.1.0\lib\Release\x64\glew32.lib;cudart_static.lib;$(ProjectDir)Libraries\AL\lib\OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Libraries\ffmpeg\lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Libraries\ImGui\imgui.cpp" />
+    <ClCompile Include="Libraries\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="Libraries\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Libraries\ImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Libraries\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Libraries\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="Libraries\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Renderres\Sources\CubeRender.cpp" />
+    <ClCompile Include="Renderres\Sources\SphereRender.cpp" />
+    <ClCompile Include="Scene\Sources\PreSceneOpening.cpp" />
+    <ClCompile Include="Scene\Sources\SceneCorridor.cpp" />
+    <ClCompile Include="Scene\Sources\SceneEnd.cpp" />
+    <ClCompile Include="Scene\Sources\SceneFinal.cpp" />
+    <ClCompile Include="Scene\Sources\SceneOpening.cpp" />
+    <ClCompile Include="Scene\Sources\SceneSecond.cpp" />
+    <ClCompile Include="Scene\Sources\SceneThird.cpp" />
+    <ClCompile Include="Shaders\AtmosphericScattering\AtmosphericScattering.cpp" />
+    <ClCompile Include="Shaders\Fire\Fire.cpp" />
+    <ClCompile Include="Shaders\ObjModelLoading\ObjModelLoading.cpp" />
+    <ClCompile Include="Shaders\WaterNew\WaterNew.cpp" />
+    <ClCompile Include="Shaders\Water\Water.cpp" />
+    <ClCompile Include="Test\Sources\TestObjModelLoading.cpp" />
+    <ClCompile Include="Test\Sources\TestWater.cpp" />
+    <ClCompile Include="Utility\Source\AudioPlayer.cpp" />
+    <ClCompile Include="Shaders\CommonColor\Color.cpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\aabb.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\ai_assert.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\anim.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\AssertHandler.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Base64.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\BaseImporter.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Bitmap.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\BlobIOSystem.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\ByteSwapper.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\camera.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\cexport.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\cfileio.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\cimport.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\ColladaMetaData.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\color4.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\commonMetaData.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\config.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\CreateAnimMesh.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\DefaultIOStream.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\DefaultIOSystem.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\DefaultLogger.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\defs.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Exceptional.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Exporter.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\fast_atof.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\GenericProperty.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\GltfMaterial.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Hash.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Importer.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\importerdesc.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\IOStream.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\IOStreamBuffer.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\IOSystem.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\light.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\LineSplitter.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\LogAux.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Logger.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\LogStream.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\material.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\MathFunctions.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\matrix3x3.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\matrix4x4.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\MemoryIOWrapper.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\mesh.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\metadata.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\NullLogger.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\ObjMaterial.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\ParsingUtils.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\pbrmaterial.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\postprocess.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Profiler.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\ProgressHandler.hpp" />
+    <ClInclude Include="Libraries\assimp\include\assimp\qnan.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\quaternion.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\RemoveComments.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\revision.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\scene.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\SceneCombiner.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\SGSpatialSort.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\SkeletonMeshBuilder.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\SmallVector.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\SmoothingGroups.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\SpatialSort.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\StandardShapes.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\StreamReader.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\StreamWriter.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\StringComparison.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\StringUtils.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Subdivision.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\texture.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\TinyFormatter.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\types.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\vector2.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\vector3.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\version.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\Vertex.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\XmlParser.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\XMLTools.h" />
+    <ClInclude Include="Libraries\assimp\include\assimp\ZipArchiveIOSystem.h" />
+    <ClInclude Include="Shaders\CommonColor\Color.h" />
+    <ClCompile Include="Shaders\ClothRendering\ClothRendering.cpp" />
+    <ClCompile Include="Shaders\Ocean\OceanShader.cpp" />
+    <ClCompile Include="Shaders\CubeMap\CubeMap.cpp" />
+    <ClCompile Include="Shaders\FBufferEffect\FBufferEffect.cpp" />
+    <ClInclude Include="Shaders\AtmosphericScattering\AtmosphericScattering.h" />
+    <ClInclude Include="Shaders\Fire\Fire.h" />
+    <ClInclude Include="Shaders\ObjModelLoading\ObjModelLoading.h" />
+    <ClInclude Include="Shaders\WaterNew\Water.h" />
+    <ClInclude Include="Shaders\Water\Water.h" />
+    <ClInclude Include="Utility\Headers\AudioPlayer.h" />
+    <ClInclude Include="Shaders\ClothRendering\ClothRendering.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_cuda.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_cuda_drvapi.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_cusolver.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_functions.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_gl.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_image.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_math.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_multiprocess.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_nvJPEG.hxx" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_string.h" />
+    <ClInclude Include="Shaders\ClothRendering\common\helper_timer.h" />
+    <ClInclude Include="Shaders\CubeMap\CubeMap.h" />
+    <ClInclude Include="Shaders\Ocean\OceanShader.h" />
+    <ClInclude Include="Shaders\FBufferEffect\FBufferEffect.h" />
+    <ClCompile Include="Shaders\Terrain\Terrain.cpp" />
+    <ClCompile Include="Test\Sources\TestAtmosphericScattering.cpp" />
+    <ClCompile Include="Test\Sources\TestClothRendering.cpp" />
+    <ClCompile Include="Test\Sources\TestCubeMap.cpp" />
+    <ClCompile Include="Test\Sources\TestOcean.cpp" />
+    <ClCompile Include="Test\Sources\TestTerrainRendering.cpp" />
+    <ClCompile Include="Test\Sources\TestVideoRendering.cpp" />
+    <ClCompile Include="Test\Sources\TestFrameBuffer.cpp" />
+    <ClCompile Include="Utility\Source\ModelLoading\Mesh.cpp" />
+    <ClCompile Include="Utility\Source\ModelLoading\Model.cpp" />
+    <ClCompile Include="Utility\Source\ModelLoading\StaticModelLoader.cpp" />
+    <ClCompile Include="Utility\Source\Ocean\3Dmath.cpp" />
+    <ClCompile Include="Utility\Source\Ocean\OceanCamera.cpp" />
+    <ClCompile Include="Utility\Source\Ocean\OceanHelper.cpp" />
+    <ClCompile Include="Utility\Source\Ocean\OceanQuadMesh.cpp" />
+    <ClCompile Include="Utility\Source\Ocean\OpenGLMesh.cpp" />
+    <ClCompile Include="Utility\Source\FrameBuffer.cpp" />
+    <ClCompile Include="Utility\Source\stb_image.cpp" />
+    <ClCompile Include="Test\Sources\TestBasicColorRenderer.cpp" />
+    <ClCompile Include="Source\Globals.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Renderres\Sources\PyramidRender.cpp" />
+    <ClCompile Include="Renderres\Sources\QuardRenderer.cpp" />
+    <ClCompile Include="Scene\Sources\SceneFirst.cpp" />
+    <ClCompile Include="Utility\Source\ShaderManager.cpp" />
+    <ClCompile Include="Test\Sources\TestBasicTextureRenderr.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Utility\Source\CustomImGui.cpp" />
+    <ClCompile Include="Utility\Source\TextureManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\ac3_parser.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\adts_parser.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\avcodec.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\avdct.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\avfft.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\bsf.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\codec.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\codec_desc.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\codec_id.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\codec_par.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\d3d11va.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\defs.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\dirac.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\dv_profile.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\dxva2.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\jni.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\mediacodec.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\packet.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\qsv.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\vdpau.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\version.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\videotoolbox.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\vorbis_parser.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavcodec\xvmc.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavdevice\avdevice.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavdevice\version.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavfilter\avfilter.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavfilter\buffersink.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavfilter\buffersrc.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavfilter\version.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavformat\avformat.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavformat\avio.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavformat\version.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\adler32.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\aes.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\aes_ctr.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\attributes.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\audio_fifo.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\avassert.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\avconfig.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\avstring.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\avutil.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\base64.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\blowfish.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\bprint.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\bswap.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\buffer.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\camellia.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\cast5.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\channel_layout.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\common.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\cpu.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\crc.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\des.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\detection_bbox.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\dict.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\display.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\dovi_meta.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\downmix_info.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\encryption_info.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\error.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\eval.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\ffversion.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\fifo.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\file.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\film_grain_params.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\frame.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hash.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hdr_dynamic_metadata.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hmac.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_cuda.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_d3d11va.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_drm.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_dxva2.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_mediacodec.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_opencl.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_qsv.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_vaapi.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_vdpau.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_videotoolbox.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\hwcontext_vulkan.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\imgutils.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\intfloat.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\intreadwrite.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\lfg.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\log.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\lzo.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\macros.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\mastering_display_metadata.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\mathematics.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\md5.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\mem.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\motion_vector.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\murmur3.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\opt.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\parseutils.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\pixdesc.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\pixelutils.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\pixfmt.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\random_seed.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\rational.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\rc4.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\replaygain.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\ripemd.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\samplefmt.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\sha.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\sha512.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\spherical.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\stereo3d.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\tea.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\threadmessage.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\time.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\timecode.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\timestamp.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\tree.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\twofish.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\tx.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\version.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\video_enc_params.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libavutil\xtea.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libswresample\swresample.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libswresample\version.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libswscale\swscale.h" />
+    <ClInclude Include="Libraries\ffmpeg\include\libswscale\version.h" />
+    <ClInclude Include="Libraries\ImGui\imconfig.h" />
+    <ClInclude Include="Libraries\ImGui\imgui.h" />
+    <ClInclude Include="Libraries\ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="Libraries\ImGui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Libraries\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Libraries\ImGui\imgui_internal.h" />
+    <ClInclude Include="Libraries\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Libraries\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Libraries\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Shaders\CommomTexture\a.h" />
+    <ClCompile Include="Shaders\CommomTexture\Texture.cpp" />
+    <ClInclude Include="Shaders\CommomTexture\Texture.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Shaders\Terrain\Terrain.h" />
+    <ClInclude Include="Source\BMP_Header.h" />
+    <ClInclude Include="Source\Common.h" />
+    <ClInclude Include="Utility\Headers\BezierCamera.h" />
+    <ClInclude Include="Utility\Headers\Camera.h" />
+    <ClInclude Include="Utility\Headers\ModelLoading\Mesh.h" />
+    <ClInclude Include="Utility\Headers\ModelLoading\Model.h" />
+    <ClInclude Include="Utility\Headers\ModelLoading\StaticModelLoader.h" />
+    <ClInclude Include="Utility\Headers\Ocean\3Dmath.h" />
+    <ClInclude Include="Utility\Headers\DDSLoader.h" />
+    <ClInclude Include="Source\Globals.h" />
+    <ClInclude Include="Renderres\Headers\Renderers.h" />
+    <ClInclude Include="Scene\Headers\Scene.h" />
+    <ClInclude Include="Utility\Headers\Ocean\OceanCamera.h" />
+    <ClInclude Include="Utility\Headers\Ocean\OceanHelper.h" />
+    <ClInclude Include="Utility\Headers\Ocean\OceanQuadMesh.h" />
+    <ClInclude Include="Utility\Headers\Ocean\OpenGLMesh.h" />
+    <ClInclude Include="Utility\Headers\Ocean\orderedarray.hpp" />
+    <ClInclude Include="Utility\Headers\FrameBuffer.h" />
+    <ClInclude Include="Utility\Headers\VideoRendering.h" />
+    <ClInclude Include="Utility\Headers\ShaderManager.h" />
+    <ClInclude Include="Utility\Headers\stb_image.h" />
+    <ClInclude Include="Test\Headers\TestCommon.h" />
+    <ClInclude Include="Utility\Headers\CustomImGui.h" />
+    <ClInclude Include="Utility\Headers\TextureManager.h" />
+    <ClInclude Include="vmath.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="Assignment.aps" />
+    <None Include="imgui.ini" />
+    <None Include="Libraries\assimp\include\assimp\.editorconfig" />
+    <None Include="Libraries\assimp\include\assimp\color4.inl" />
+    <None Include="Libraries\assimp\include\assimp\config.h.in" />
+    <None Include="Libraries\assimp\include\assimp\material.inl" />
+    <None Include="Libraries\assimp\include\assimp\matrix3x3.inl" />
+    <None Include="Libraries\assimp\include\assimp\matrix4x4.inl" />
+    <None Include="Libraries\assimp\include\assimp\module.modulemap" />
+    <None Include="Libraries\assimp\include\assimp\quaternion.inl" />
+    <None Include="Libraries\assimp\include\assimp\revision.h.in" />
+    <None Include="Libraries\assimp\include\assimp\SmoothingGroups.inl" />
+    <None Include="Libraries\assimp\include\assimp\vector2.inl" />
+    <None Include="Libraries\assimp\include\assimp\vector3.inl" />
+    <None Include="Libraries\assimp\lib\Debug\assimp-vc143-mtd.dll" />
+    <None Include="Libraries\ffmpeg\bin\avcodec-59.dll" />
+    <None Include="Libraries\ffmpeg\bin\avdevice-59.dll" />
+    <None Include="Libraries\ffmpeg\bin\avfilter-8.dll" />
+    <None Include="Libraries\ffmpeg\bin\avformat-59.dll" />
+    <None Include="Libraries\ffmpeg\bin\avutil-57.dll" />
+    <None Include="Libraries\ffmpeg\bin\ffmpeg.exe" />
+    <None Include="Libraries\ffmpeg\bin\ffplay.exe" />
+    <None Include="Libraries\ffmpeg\bin\ffprobe.exe" />
+    <None Include="Libraries\ffmpeg\bin\swresample-4.dll" />
+    <None Include="Libraries\ffmpeg\bin\swscale-6.dll" />
+    <None Include="Libraries\ffmpeg\lib\avcodec-59.def" />
+    <None Include="Libraries\ffmpeg\lib\avdevice-59.def" />
+    <None Include="Libraries\ffmpeg\lib\avfilter-8.def" />
+    <None Include="Libraries\ffmpeg\lib\avformat-59.def" />
+    <None Include="Libraries\ffmpeg\lib\avutil-57.def" />
+    <None Include="Libraries\ffmpeg\lib\swresample-4.def" />
+    <None Include="Libraries\ffmpeg\lib\swscale-6.def" />
+    <None Include="Libraries\ImGui\imgui.ini" />
+    <None Include="README.md" />
+    <None Include="Shaders\AtmosphericScattering\ground.frag" />
+    <None Include="Shaders\AtmosphericScattering\ground.vert" />
+    <None Include="Shaders\AtmosphericScattering\sky.frag" />
+    <None Include="Shaders\AtmosphericScattering\sky.vert" />
+    <None Include="Shaders\CommomTexture\CommonTexture.frag" />
+    <None Include="Shaders\CommomTexture\CommonTexture.vert" />
+    <None Include="Shaders\CommonColor\CommonColor.frag" />
+    <None Include="Shaders\CommonColor\CommonColor.vert" />
+    <None Include="Shaders\ClothRendering\ClothRendering.vert" />
+    <None Include="Shaders\ClothRendering\ClothRendering.frag" />
+    <None Include="Shaders\CubeMap\CubeMap.frag" />
+    <None Include="Shaders\CubeMap\CubeMap.vert" />
+    <None Include="Shaders\FBufferEffect\FBufferEffect.frag" />
+    <None Include="Shaders\FBufferEffect\FBufferEffect.vert" />
+    <None Include="Shaders\Fire\Fire.frag" />
+    <None Include="Shaders\Fire\Fire.vert" />
+    <None Include="Shaders\ObjModelLoading\ObjModelLoading.frag" />
+    <None Include="Shaders\ObjModelLoading\ObjModelLoading.vert" />
+    <None Include="Shaders\Terrain\terrain.frag" />
+    <None Include="Shaders\Terrain\terrain.tesc" />
+    <None Include="Shaders\Terrain\terrain.tese" />
+    <None Include="Shaders\Terrain\terrain.vert" />
+    <None Include="Shaders\WaterNew\FragmentShader_Water.frag" />
+    <None Include="Shaders\WaterNew\VertexShader_Water.vert" />
+    <None Include="Shaders\Water\Water.frag" />
+    <None Include="Shaders\Water\Water.vert" />
+    <None Include="Shaders\Water\WaterbedQuad.frag" />
+    <None Include="Shaders\Water\WaterbedQuad.vert" />
+    <None Include="Shaders\Water\WaterQuad.frag" />
+    <None Include="Shaders\Water\WaterQuad.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CustomLog.txt" />
+    <Text Include="Log.txt" />
+    <Text Include="Source\Log.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Source\OGL.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Media\Textures\Ocean\back.jpg" />
+    <Image Include="Media\Textures\Ocean\bottom.jpg" />
+    <Image Include="Media\Textures\Ocean\front.jpg" />
+    <Image Include="Media\Textures\Ocean\left.jpg" />
+    <Image Include="Media\Textures\Ocean\perlin_noise.dds" />
+    <Image Include="Media\Textures\Ocean\right.jpg" />
+    <Image Include="Media\Textures\Ocean\top.jpg" />
+    <Image Include="Media\Textures\Test\alpha.dds" />
+    <Image Include="Media\Textures\Test\CubeMap\back.bmp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Media\Textures\Test\CubeMap\bottom.bmp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Media\Textures\Test\CubeMap\front.bmp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Media\Textures\Test\CubeMap\left.bmp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Media\Textures\Test\CubeMap\right.bmp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Media\Textures\Test\CubeMap\top.bmp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Media\Textures\Test\Smiley.bmp" />
+    <Image Include="Media\Textures\Test\Stone.bmp" />
+    <Image Include="Media\Textures\Test\wood.png" />
+    <Image Include="Media\Textures\Water\waterDUDVmap.png" />
+    <Image Include="Media\Textures\Water\waterNormalMap.png" />
+    <Image Include="Source\wood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Media\Audio\HawanMantra.wav" />
+    <Media Include="Media\Audio\openingScene.wav" />
+    <Media Include="Media\Video\AMCBanner.mp4" />
+    <Media Include="Media\Video\video.mp4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Libraries\assimp\lib\Debug\assimp-vc143-mtd.lib" />
+    <Library Include="Libraries\assimp\lib\Release\assimp-vc143-mt.lib" />
+    <Library Include="Libraries\ffmpeg\lib\avcodec.lib" />
+    <Library Include="Libraries\ffmpeg\lib\avdevice.lib" />
+    <Library Include="Libraries\ffmpeg\lib\avfilter.lib" />
+    <Library Include="Libraries\ffmpeg\lib\avformat.lib" />
+    <Library Include="Libraries\ffmpeg\lib\avutil.lib" />
+    <Library Include="Libraries\ffmpeg\lib\libavcodec.dll.a" />
+    <Library Include="Libraries\ffmpeg\lib\libavdevice.dll.a" />
+    <Library Include="Libraries\ffmpeg\lib\libavfilter.dll.a" />
+    <Library Include="Libraries\ffmpeg\lib\libavformat.dll.a" />
+    <Library Include="Libraries\ffmpeg\lib\libavutil.dll.a" />
+    <Library Include="Libraries\ffmpeg\lib\libswresample.dll.a" />
+    <Library Include="Libraries\ffmpeg\lib\libswscale.dll.a" />
+    <Library Include="Libraries\ffmpeg\lib\swresample.lib" />
+    <Library Include="Libraries\ffmpeg\lib\swscale.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="Shaders\ClothRendering\Cloth_kernel.cu" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.6.targets" />
+  </ImportGroup>
+</Project>
