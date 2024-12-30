@@ -105,3 +105,4 @@ Makefile
 *.swp
 *.DS_Store
 Media/
+.zip
