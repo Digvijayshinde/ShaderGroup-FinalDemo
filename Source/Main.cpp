@@ -5,7 +5,7 @@
 #include "../Utility/Headers/CustomImGui.h"		//For ImGui
 #include "../Utility/Headers/Camera.h"
 #include "../Utility/Headers/AudioPlayer.h"
-
+#include "../Shaders/FadeInFadeOut/FadeInFadeOut.h"
 
 //Temp
 #include "../Shaders/Ocean/OceanShader.h"
@@ -25,9 +25,12 @@ double delta = 0.0;
 double timeElapsed = 0.0;
 short FPS_rate = 0;
 
+//Frame rate (FPS) variables
+short gFPSRate = 0;
 LONGLONG tickspersec;
 double last, current = 0.0;
 double delta2, accum = 0;
+FadeInFadeOutShader* fadeInFadeOutObject;
 
 //Imgui 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -117,17 +120,20 @@ int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLin
 	}
 	ShowWindow(hwnd, iCmdShow);
 
-	//forGrounding and focusing the window
-	SetForegroundWindow(hwnd);
-	SetFocus(hwnd);
-
-
 	QueryPerformanceFrequency(&frequency);
 	tickspersec = frequency.QuadPart;
 
 	QueryPerformanceCounter(&startingTime);
 	last = (startingTime.QuadPart % tickspersec) / (double)tickspersec;
+
+#if ENABLE_FPS_LOCK
+	float timePerFrame = 1.0f / DESIRED_FPS;
+#endif
 	float freq = 1.0f / (float)frequency.QuadPart;
+	//forGrounding and focusing the window
+	SetForegroundWindow(hwnd);
+	SetFocus(hwnd);
+
 
 	#pragma region initImgui
 	#if DEBUG_MODE
@@ -140,47 +146,71 @@ int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLin
 
 	//Game Loop
 
-	while (bDone == FALSE) {
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-			if (msg.message == WM_QUIT) {
-				bDone = TRUE;
+		while (bDone == FALSE) {
+			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+				if (msg.message == WM_QUIT) {
+					bDone = TRUE;
+				}
+				else {
+					TranslateMessage(&msg);
+					DispatchMessage(&msg);
+				}
 			}
 			else {
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
+				if (bgActiveWindow == TRUE) {
+#pragma region ImGui
+#if DEBUG_MODE
+					displayPrepareForImGui();
+					displayImGui();
+#endif 
+#pragma endregion ImGui
+
+					//game loop
+					display((float)accum / 0.0333f, (float)delta2);
+
+					// FPS Lock
+					QueryPerformanceCounter(&endingTime);
+					delta = (double)(endingTime.QuadPart - startingTime.QuadPart) * freq;
+					current = (endingTime.QuadPart % tickspersec) / (double)tickspersec;
+
+					if (current < last)
+						delta2 = ((1.0 + current) - last);
+					else
+						delta2 = (current - last);
+
+					last = current;
+					accum += delta2;
+
+#if ENABLE_FPS_LOCK
+					while (delta < timePerFrame)
+					{
+						QueryPerformanceCounter(&endingTime);
+						delta = (endingTime.QuadPart - startingTime.QuadPart) * freq;
+					}
+
+#endif
+					timeElapsed += delta;
+					FPS_rate++;
+
+					if (timeElapsed >= 1.0)
+					{
+						gFPSRate = FPS_rate;
+						FPS_rate = 0;
+						timeElapsed = 0.0;
+					}
+
+					startingTime = endingTime;
+
+					update();
+
+				}
 			}
+
 		}
-		else {
-			if (bgActiveWindow == TRUE) {
-				#pragma region ImGui
-				#if DEBUG_MODE
-								displayPrepareForImGui();
-								displayImGui();
-				#endif 
-				#pragma endregion ImGui
-
-				//game loop
-								display((float)accum / 0.0333f, (float)delta2);
-
-								// FPS Lock
-								QueryPerformanceCounter(&endingTime);
-								delta = (double)(endingTime.QuadPart - startingTime.QuadPart) * freq;
-								current = (endingTime.QuadPart % tickspersec) / (double)tickspersec;
-
-								if (current < last)
-									delta2 = ((1.0 + current) - last);
-								else
-									delta2 = (current - last);
-
-								last = current;
-								accum += delta2;
-
-				update();
-			}
-		}
-
-	}
 	uninitialize();
+
+
+
 	return (msg.wParam);
 }
 
@@ -206,14 +236,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 	#pragma region WndProcScene
 	#if SCENE_RENDER
 				switch (currentSceneNumber) {
+				case 0:
+					scene.WndProcForPreSceneOpening(hwnd, imsg, wParam, lParam);
+					break;
 				case 1:
 					scene.WndProcForSceneOne(hwnd, imsg, wParam, lParam);
 					break;
-				case 2:
+				case 3:
 					scene.WndProcForSceneTwo(hwnd, imsg, wParam, lParam);
 					break;
-				case 3:
-					scene.WndProcForSceneThird(hwnd, imsg, wParam, lParam);
+				case 4:
+					scene.WndProcForSceneMeet(hwnd, imsg, wParam, lParam);
 					break;
 				}
 	#endif
@@ -277,6 +310,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 			currentSceneNumber++;
 			break;
 		}
+		//case '8':
+		//fadeInFadeOutObject->SetMode(NO_FADEIN_FADEOUT);
+		//break;
+		//case '9':
+		//	//fadeInFadeOutObject->SetMode(FADE_IN);
+		//	setBlendingMode(FADE_IN);
+		//	break;
+		//case '0':
+		//	fadeInFadeOutObject->SetMode(FADE_OUT);
+		//	break;
+
 		if(ENABLE_MODEL_PLACING){
 		case 'X':
 			transformationVector.translationVector[0] += transformationVector.transformationSpeed;
@@ -346,8 +390,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 			transformationVector.scaleVector[0] -= transformationVector.transformationSpeed;
 			transformationVector.scaleVector[1] -= transformationVector.transformationSpeed;
 			transformationVector.scaleVector[2]-= transformationVector.transformationSpeed;
-
-
 			break;
 		case '8':
 			transformationVector.scaleVector[0] += transformationVector.transformationSpeed;
@@ -361,9 +403,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 			transformationVector.transformationSpeed -= 0.1;
 			if (transformationVector.transformationSpeed < 0.0)
 				transformationVector.transformationSpeed = 0.0;
-				break;
+			break;
 		case 'r':
-			transformationVector.resetTransformationVector();
+			//transformationVector.resetTransformationVector();
+			if (!cameraReset)
+			{
+				cameraReset = true;
+			}
 			break;
 		case 'p': 
 			transformationVectorArray.push_back(transformationVector);
@@ -653,7 +699,8 @@ int initialize(void) {
 
 	////full screen now as start of application
 	TogglefullScreen();
-
+	fadeInFadeOutObject = new FadeInFadeOutShader();
+	fadeInFadeOutObject->initializeFadeInFadeOutShaderProgram();
 	//playSong(0);
 
 	return 0;
@@ -688,7 +735,7 @@ void resize(int width, int height)
 	glViewport(0, 0, GLsizei(width), GLsizei(height));
 	gWinWidth = width;
 	gWinHeight = height;
-	prespectiveProjectionMatrix = vmath::perspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 50000.0f);
+	prespectiveProjectionMatrix = vmath::perspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 5000000.0f);
 }
 void display(float alpha,float elapsedtime) {
 
@@ -750,10 +797,12 @@ void display(float alpha,float elapsedtime) {
 
 	#pragma region ImGuiRendering
 		#if DEBUG_MODE
-				renderingImGui();
+				renderingImGui(scene);
 				
 		#endif // DEBUG_MODE
 	#pragma endregion ImGuiRendering
+
+	fadeInFadeOutObject->FadeInFadeOut();
 	SwapBuffers(gHdc);
 }
 void update(void) {
@@ -858,3 +907,15 @@ void uninitialize(void) {
 	}
 }
 
+//This function help to set bending mode in scene
+void setBlendingMode(int mode, float fadeinFadeOutSpeed) {
+	fadeInFadeOutObject->fadeInFadeOutSpeed = fadeinFadeOutSpeed;
+	switch (mode) {
+	case 1:
+		fadeInFadeOutObject->SetMode(FADE_IN);
+		break;
+	case 2:
+		fadeInFadeOutObject->SetMode(FADE_OUT);
+		break;
+	}
+}

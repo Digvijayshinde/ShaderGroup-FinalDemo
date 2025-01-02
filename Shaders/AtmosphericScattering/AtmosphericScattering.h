@@ -16,7 +16,6 @@ private:
 	vec3 wavelength;
 	GLfloat cameraHeight;
 	GLfloat fscale;
-	GLfloat rayleigh_constant = 0.0025f;
 	GLfloat scaleDepth = 0.25f;
 	GLfloat innerRadius = 10000.0f;
 	GLfloat outerRadius = 10500.0f;
@@ -56,7 +55,7 @@ public:
 	void decreaseLightPosition(int pos, float value);
 	void increaseAndDecraseSunEmision(int flag,float value);
 
-	vec3 lightPos;
-	GLfloat mie_constant = 0.0550f;
-
+	vec3 lightPos = vec3(0.699302, 0.148169, 0.699302);
+	GLfloat mie_constant = 0.0100f;
+	GLfloat rayleigh_constant = 0.01450;
 };

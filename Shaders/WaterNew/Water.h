@@ -1,9 +1,8 @@
+#pragma once
 #include "../../Utility/Headers/ShaderManager.h"
 #include "../../Source/Common.h"
 
 #define PATCH_SIZE  64
-
-void captureWaterReflectionAndRefraction();
 
 class WaterFrameBuffers {
 private:

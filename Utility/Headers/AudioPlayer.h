@@ -7,15 +7,16 @@
 
 
 #define AUDIO_DIR   "Media/Audio/"
-#define NUM_AUDIO 7
+#define NUM_AUDIO 8
 
 static const char* szAudios[] = {
-    "ver8.wav",
-    "HawanMantra.wav",
+    "Scene2-ChanakyaInsult.wav",
+    "HawanMantraAndChanakyaPratigya.wav",
     "SceneEnd.wav",
-    "IntroToChandragupt.wav",
+    "ChanakyaMeetChandragupt-Final.wav",
     "Scene0SkyViewVer2FadeOut.wav",
-    "Chanakya_og1.wav",
+    "StrategyRoom.wav",
+    "BattleField.wav",
     "FinalAudio.wav"
     "\0",
 };

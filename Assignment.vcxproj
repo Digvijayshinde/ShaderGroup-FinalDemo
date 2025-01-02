@@ -163,7 +163,9 @@
     <ClCompile Include="Scene\Sources\SceneThird.cpp" />
     <ClCompile Include="Scene\Sources\SceneTraining.cpp" />
     <ClCompile Include="Shaders\AtmosphericScattering\AtmosphericScattering.cpp" />
+    <ClCompile Include="Shaders\FadeInFadeOut\FadeInFadeOut.cpp" />
     <ClCompile Include="Shaders\Fire\Fire.cpp" />
+    <ClCompile Include="Shaders\GodRays\godRays.cpp" />
     <ClCompile Include="Shaders\ObjModelLoading\ObjModelLoading.cpp" />
     <ClCompile Include="Shaders\WaterNew\WaterNew.cpp" />
     <ClCompile Include="Shaders\Water\Water.cpp" />
@@ -256,7 +258,9 @@
     <ClCompile Include="Shaders\CubeMap\CubeMap.cpp" />
     <ClCompile Include="Shaders\FBufferEffect\FBufferEffect.cpp" />
     <ClInclude Include="Shaders\AtmosphericScattering\AtmosphericScattering.h" />
+    <ClInclude Include="Shaders\FadeInFadeOut\FadeInFadeOut.h" />
     <ClInclude Include="Shaders\Fire\Fire.h" />
+    <ClInclude Include="Shaders\GodRays\godRays.h" />
     <ClInclude Include="Shaders\ObjModelLoading\ObjModelLoading.h" />
     <ClInclude Include="Shaders\WaterNew\Water.h" />
     <ClInclude Include="Shaders\Water\Water.h" />
@@ -284,6 +288,7 @@
     <ClCompile Include="Test\Sources\TestTerrainRendering.cpp" />
     <ClCompile Include="Test\Sources\TestVideoRendering.cpp" />
     <ClCompile Include="Test\Sources\TestFrameBuffer.cpp" />
+    <ClCompile Include="Utility\Source\FramebufferWithDepth.cpp" />
     <ClCompile Include="Utility\Source\ModelLoading\Mesh.cpp" />
     <ClCompile Include="Utility\Source\ModelLoading\Model.cpp" />
     <ClCompile Include="Utility\Source\ModelLoading\StaticModelLoader.cpp" />
@@ -452,6 +457,7 @@
     <ClInclude Include="Source\Common.h" />
     <ClInclude Include="Utility\Headers\BezierCamera.h" />
     <ClInclude Include="Utility\Headers\Camera.h" />
+    <ClInclude Include="Utility\Headers\FramebufferWithDepth.h" />
     <ClInclude Include="Utility\Headers\ModelLoading\Mesh.h" />
     <ClInclude Include="Utility\Headers\ModelLoading\Model.h" />
     <ClInclude Include="Utility\Headers\ModelLoading\StaticModelLoader.h" />
@@ -522,6 +528,8 @@
     <None Include="Shaders\ClothRendering\ClothRendering.frag" />
     <None Include="Shaders\CubeMap\CubeMap.frag" />
     <None Include="Shaders\CubeMap\CubeMap.vert" />
+    <None Include="Shaders\FadeInFadeOut\FadeInFadeOut.frag" />
+    <None Include="Shaders\FadeInFadeOut\FadeInFadeOut.vert" />
     <None Include="Shaders\FBufferEffect\FBufferEffect.frag" />
     <None Include="Shaders\FBufferEffect\FBufferEffect.vert" />
     <None Include="Shaders\Fire\Fire.frag" />

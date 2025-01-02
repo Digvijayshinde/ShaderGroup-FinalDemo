@@ -3,6 +3,7 @@
 StaticModel palace;
 StaticModel palaceInterior;
 StaticModel chanakyaStanding;
+StaticModel tree;
 
 int initializeStaticModel(StaticModel* pStaticModel, string const& path)
 {

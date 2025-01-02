@@ -1,0 +1,268 @@
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (379)] : Camera Position = vec3(-64.581161,5.034544,91.807205)
+ Camera Yaw = -6.600706
+ Camera Pitch = -3.799968
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (379)] : Camera Position = vec3(-61.900337,4.846131,95.205299)
+ Camera Yaw = -20.600691
+ Camera Pitch = -1.000027
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (379)] : Camera Position = vec3(-142.920547,22.487391,156.063812)
+ Camera Yaw = -49.000683
+ Camera Pitch = 3.999964
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (377)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -57.000031,-2.400000,112.200241
+Rotation Vector= 0.000000,-147.299881,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (379)] : Camera Position = vec3(-142.920547,22.487391,156.063812)
+ Camera Yaw = -49.000683
+ Camera Pitch = 3.999964
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\PreSceneOpening.cpp: (63)] : Godrays lightPos = vec3(1.000000,1.000000,1.000000)
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (380)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -5.700001,0.000000,0.000000
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = 0.700000,0.700000,0.700000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (382)] : Camera Position = vec3(182.445862,17.948416,243.554276)
+ Camera Yaw = 1.000035
+ Camera Pitch = 0.000000
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\PreSceneOpening.cpp: (63)] : Godrays lightPos = vec3(1.000000,10.000000,1.000000)
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (380)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -5.700001,0.000000,0.000000
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = 0.700000,0.700000,0.700000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (380)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -5.700001,0.000000,0.000000
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = 0.700000,0.700000,0.700000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (382)] : Camera Position = vec3(182.445862,17.948416,243.554276)
+ Camera Yaw = 1.000035
+ Camera Pitch = 0.000000
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\PreSceneOpening.cpp: (63)] : Godrays lightPos = vec3(2.000000,3.000000,7.000000)
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (380)] : 
+Transformation for Model - 0.000000
+ Translation Vector = -692.999146,107.099930,-251.999969
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = -55.699951,-55.699951,-55.699951
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (382)] : Camera Position = vec3(-40.074631,174.625122,266.602905)
+ Camera Yaw = 224.000320
+ Camera Pitch = -8.199950
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (32)] : Video file open Successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (45)] : allocation memory for video rendering is successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (32)] : Video file open Successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (45)] : allocation memory for video rendering is successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (32)] : Video file open Successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (45)] : allocation memory for video rendering is successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (32)] : Video file open Successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (45)] : allocation memory for video rendering is successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (32)] : Video file open Successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (45)] : allocation memory for video rendering is successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneMeet.cpp: (71)] : Godrays lightPos = vec3(1.300000,0.000000,0.000000)
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (421)] : 
+Transformation for Model - 0.000000
+ Translation Vector = 0.000000,0.000000,0.000000
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (423)] : Camera Position = vec3(0.000000,0.000000,0.000000)
+ Camera Yaw = 1.000035
+ Camera Pitch = 0.200000
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneMeet.cpp: (71)] : Godrays lightPos = vec3(1.500000,0.400000,-0.200000)
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (421)] : 
+Transformation for Model - 0.000000
+ Translation Vector = 0.000000,0.000000,0.000000
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (421)] : 
+Transformation for Model - 0.000000
+ Translation Vector = 0.000000,0.000000,0.000000
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (423)] : Camera Position = vec3(0.000000,0.000000,0.000000)
+ Camera Yaw = 1.000035
+ Camera Pitch = 0.200000
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneMeet.cpp: (71)] : Godrays lightPos = vec3(1.500000,0.400000,-0.200000)
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (421)] : 
+Transformation for Model - 0.000000
+ Translation Vector = 0.000000,0.000000,0.000000
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (421)] : 
+Transformation for Model - 0.000000
+ Translation Vector = 0.000000,0.000000,0.000000
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (421)] : 
+Transformation for Model - 0.000000
+ Translation Vector = 0.000000,0.000000,0.000000
+Rotation Vector= 0.000000,0.000000,0.000000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (423)] : Camera Position = vec3(-79.648827,5.184241,122.843521)
+ Camera Yaw = -40.599976
+ Camera Pitch = 1.799994
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneSecond.cpp: (59)] : AtmosPhere lightPos = vec3(0.745398,0.138177,0.652142)
+ , mie constant = 0.010000
+, rayleigh_constant = 0.014500
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (421)] : 
+Transformation for Model - 0.000000
+ Translation Vector = 247.200897,10030.990234,249.101501
+Rotation Vector= 0.000000,0.000000,-0.300000
+Scale Vector = 1.000000,1.000000,1.000000
+----------------------------------------------------------
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Source\Main.cpp: (423)] : Camera Position = vec3(14.457620,10054.901367,345.976593)
+ Camera Yaw = 65.600159
+ Camera Pitch = 5.199986
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (32)] : Video file open Successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (45)] : allocation memory for video rendering is successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (32)] : Video file open Successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (45)] : allocation memory for video rendering is successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (32)] : Video file open Successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Scene\Sources\SceneFirst.cpp: (45)] : allocation memory for video rendering is successfully 
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\height.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.
+[D:\RTR_FinalProject\code\ShaderGroup-FinalDemo\Utility\Source\TextureManager.cpp: (178)] : load texture successfull Media\Textures\Terrain\heightmap.png.

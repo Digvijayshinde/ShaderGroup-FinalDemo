@@ -1,3 +1,4 @@
+#pragma once
 #include "../../Source/Globals.h"
 #include"../Headers/CustomImGui.h"
 
@@ -44,7 +45,7 @@ void displayPrepareForImGui() {
 	ImGui::NewFrame();
 
 }
-void renderingImGui() {
+void renderingImGui(Scene scene) {
 
 	ImGui::BulletText("Position: X = %.2f, Y = %.2f, Z = %.2f", freeCamera->position[0], freeCamera->position[1], freeCamera->position[2]);
 	ImGui::BulletText("Yaw: %.2f", freeCamera->yaw);
@@ -57,6 +58,10 @@ void renderingImGui() {
 	ImGui::BulletText("Transformation Position: X = %.2f, Y = %.2f, Z = %.2f", transformationVector.translationVector[0], transformationVector.translationVector[1], transformationVector.translationVector[2]);
 	ImGui::BulletText("Scale: X = %.2f, Y = %.2f, Z = %.2f", transformationVector.scaleVector[0], transformationVector.scaleVector[1], transformationVector.scaleVector[2]);
 
+	if (currentSceneNumber == 4)
+	{
+		scene.ImGuiForSceneMeet();
+	}
 	ImGui::Render();
 
 

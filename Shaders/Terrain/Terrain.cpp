@@ -95,6 +95,11 @@ void TerrainShader::displayTerrainShader(TextureManager* terrainTextures,mat4 mo
 	glDrawArrays(GL_PATCHES, 0, (GLsizei)vertices.size() / 2);
 	glBindVertexArray(0);
 
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 void TerrainShader::unUseTerrainShaderProgram() {
 	shaderProgramObject.unUseProgram();

@@ -25,6 +25,7 @@ extern StaticModel palaceInterior;
 
 void Scene::WndProcForSceneFinal(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 	//code
+
 }
 
 int Scene::initialiseSceneFinal() {

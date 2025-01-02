@@ -1,3 +1,4 @@
+#pragma once
 #include"../../Source/Common.h"
 
 class Scene {
@@ -62,6 +63,8 @@ public:
 
 	//  Scene Meet
 	void WndProcForSceneMeet(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam);
+	void ImGuiForSceneMeet();
+
 	int initialiseSceneMeet();
 	void displaySceneMeet();
 	void updateSceneMeet();

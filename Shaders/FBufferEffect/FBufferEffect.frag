@@ -59,38 +59,43 @@ vec4 color;
       }
 
 
+vec4 grayscale(vec4 inputColor)
+{    
+	float average = 0.2126 * inputColor.r + 0.7152 * inputColor.g + 0.0722 * inputColor.b;
+    //average = clamp(average + 0.1, 0.0, 1.0); // Add 0.1 to lift overall brightness
+	return vec4(average, average, average, 1.0);
+}
+
 
 vec4 getFBMNoise()
  {
-     vec2 st = gl_FragCoord.xy/vec2(1000, 1000);
-     vec3 colortemp = vec3(1.0);
-     vec2 q = vec2(0.0);
+     vec2 resolution = vec2(1024.0, 768.0);
+	vec2 st = gl_FragCoord.xy / resolution * 3.; 
+     vec3 colortemp = vec3(0.0);
+     vec4 noiseColor;
 
-     q.x = fbm( st + 0.01*u_time);
+     vec2 q = vec2(0.0);
+     q.x = fbm( st + 0.00*u_time);
      q.y = fbm( st + vec2(1.0));
 
      vec2 r = vec2(0.0);
 
      r.x = fbm( st + 1.0*q + vec2(1.7,9.2)+ 0.15*u_time );
-     r.y = fbm( st + 1.0*q + vec2(8.3,2.8)+ 0.126*u_time);
+     r.y = fbm( st + 1.0*q + vec2(8.3,2.8)+ 0.126*u_time);   
 
-     
      float f = fbm(st+r);
-
-   //  "colortemp = mix(vec3(1.0,1.0,0.8), vec3(0.0,0.0,1.0), clamp((f),0.0,0.3));
-
-     // "colortemp = mix(colortemp, vec3(0.1,0,0.364706), clamp(length(q),0.0,1.0));
-
-     // "colortemp = mix(colortemp, vec3(0.666667,1,1), clamp(length(r.x),0.0,1.0));
-
-     //  "return vec4((f*f*f+.6*f*f+.5*f)*colortemp,1.0);
-     
-     return vec4((f+.6*f+f)*colortemp,1.0);
-
+    colortemp = mix(vec3(0.101961, 0.619608, 0.666667), vec3(0.666667, 0.666667, 0.498039), clamp((f * f) * 4.0, 0.0, 1.0));
+    colortemp = mix(colortemp, vec3(0, 0, 0.164706), clamp(length(q), 0.0, 1.0));
+    colortemp = mix(colortemp, vec3(0.666667, 1.0, 1.0), clamp(length(r.x), 0.0, 1.0));
+    noiseColor =  vec4((f * f * f + .6 * f * f + .5 * f) * colortemp,1.0);
+    noiseColor = grayscale(noiseColor);
+    return noiseColor;
  }
 
 void main(void)
 {
+    float blendFactor = 0.5; // Adjust this value to control blending
+
     if(u_effectType==1)
     {
              color=texture(u_textureSampler,a_texcoord_out)*vec4(1.0f,1.0f,1.0f,1.0f);
@@ -100,7 +105,8 @@ void main(void)
             color.rgb=mix(color.rgb,color.rgb*v,u_intensity);       	
    }
    else if(u_effectType==2)
-        color=getFBMNoise()*texture(u_textureSampler,a_texcoord_out);
+
+        color=getFBMNoise()+texture(u_textureSampler,a_texcoord_out);
 
    else{
           color=texture(u_textureSampler,a_texcoord_out);

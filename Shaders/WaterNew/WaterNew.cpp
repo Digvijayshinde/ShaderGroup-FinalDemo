@@ -190,7 +190,7 @@ void WaterFrameBuffers::draw_water(GLuint  waterDDVTexture, GLuint waterNormalMa
     glUniform1f(watermovingFactorUniform, this->getMoveFactor());
 	glUniform3fv(watercamerapositonUniform,1, camPos);
 	glUniform3fv(waterlightPositionUniform,1, vec3(-515,10200,911));
-	glUniform3fv(waterlightColorUniform,1,vec3(0.7f,0.7f,1.0f));
+	glUniform3fv(waterlightColorUniform,1,vec3(0.9f,0.9f,1.0f));
 	
 
 	glActiveTexture(GL_TEXTURE0);

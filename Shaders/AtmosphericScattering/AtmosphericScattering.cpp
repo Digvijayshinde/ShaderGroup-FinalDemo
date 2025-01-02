@@ -24,10 +24,6 @@ int AtmosphericScatteringShader::initializeAtmosphericScatteringProgram() {
     GenerateSphere(innerRadius, 200, 200, vertices_inner_sphere, indices_inner_sphere);
     GenerateSphere(outerRadius, 200, 200, vertices_outer_sphere, indices_outer_sphere);
 
-	//initialize atmospheric scattering variables
-	lightPos = vec3(0.576734, 0.578582, 0.576734);
-    //lightPos = transformationVector.translationVector;
-
 	wavelength = vec3(0.65f, 0.57f, 0.475f);
 	wavelength[0] = powf(wavelength[0], 4.0f);
 	wavelength[1] = powf(wavelength[1], 4.0f);

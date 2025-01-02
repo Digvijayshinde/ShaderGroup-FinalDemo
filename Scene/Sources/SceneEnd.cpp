@@ -55,9 +55,9 @@ int Scene::initialiseSceneEnd() {
 	if (objmodelLoadingShader->initializeObjModelLoadingShaderProgram() != 0) {
 		return -1;
 	}
-	//initializeStaticModel(&palace, "Media/Models/CityWithCastle/city2.obj");
+	initializeStaticModel(&palace, "Media/Models/CityWithCastle/city2.obj");
 	initializeStaticModel(&pikeman, "Media/Models/pikeman/pike.obj");
-	//initializeStaticModel(&chanakyaStanding, "Media/Models/chanakya model/chanakya holding stick.obj");
+	initializeStaticModel(&chanakyaStanding, "Media/Models/chanakya model/chanakya holding stick.obj");
 
 
 	if (textureShader->initializeTextureShaderProgram() != 0) {
@@ -134,7 +134,7 @@ void Scene::displaySceneEnd() {
 	if (initSongForSceneEnd == 0) {
 		if (AUDIO_ENABLE) {
 			initSongForSceneEnd = 1;
-			//playSong(4);
+			playSong(6);
 		}
 	}
 
@@ -222,7 +222,7 @@ void Scene::updateSceneEnd() {
 	if (!debugCamera)
 	{
 		if (bazierCameraForSceneEnd->time < 1.0f) {
-			bazierCameraForSceneEnd->time += 0.00025f;
+			bazierCameraForSceneEnd->time += 0.00065f;
 			bazierCameraForSceneEnd->update();
 		}
 	}

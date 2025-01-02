@@ -5,6 +5,8 @@ out vec4 FragColor;
 
 uniform float u_alpha;
 uniform sampler2D u_textureSampler;
+uniform int isColor_godRays;
+uniform bool enableGodRays;
 
 void main(void)
 {
@@ -16,5 +18,18 @@ void main(void)
 	float darknessFactor = 0.2; // Adjust this value to control how dark the color becomes
     FragColor.rgb *= darknessFactor;
 
-	FragColor=vec4(FragColor.rgb,u_alpha);
+	  if(enableGodRays)
+     {
+            if(isColor_godRays==1)
+            {
+                FragColor = vec4(1.0);
+            }
+            else
+            {
+                FragColor = vec4(0.0);
+            }
+      }
+
+
+	//FragColor=vec4(FragColor.rgb,u_alpha);
 }

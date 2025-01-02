@@ -9,6 +9,10 @@
 #include "../../Shaders/WaterNew/Water.h"
 #include "../../../Utility/Headers/BezierCamera.h"
 #include"../../Shaders/Fire/Fire.h"
+#include "../../../Utility/Headers/FramebufferWithDepth.h"
+#include "../../Shaders/FBufferEffect/FBufferEffect.h"
+
+
 static FireShader* fireShader = new FireShader();
 
 static AtmosphericScatteringShader* atmosphericScatteringShader = new AtmosphericScatteringShader();
@@ -18,7 +22,7 @@ static TextureManager* terrainTextures = new TextureManager();
 static StaticModel hut;
 static StaticModel hut2;
 
-static StaticModel tree;
+extern StaticModel tree;
 static StaticModel kund;
 static StaticModel chanakyaSit;
 
@@ -28,7 +32,7 @@ static TextureManager* textures = new TextureManager();
 static int initCameraForSceneSecond = 0;
 static int initSongForSceneSecond = 0;
 
-static WaterFrameBuffers* fbos;
+static WaterFrameBuffers* fbos = new WaterFrameBuffers();
 static float moveFactor = 0.0f;
 static bool isYFlipped = false;
 static TextureManager* textureManager = new TextureManager();
@@ -38,6 +42,9 @@ static BezierCamera* bazierCameraForSceneSecondTwo = new BezierCamera();
 
 static int camNum = 0;
 
+static FrameBufferWithDepth* fbo_scene_WithBloom;
+static FBufferEffectShader* fBufferShader = new FBufferEffectShader();
+static float FBMTime = 0.0f;
 
 
 void captureWaterReflectionAndRefractionForSecondScene();
@@ -49,7 +56,7 @@ void Scene::WndProcForSceneTwo(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lPara
 	case WM_CHAR:
 		switch (wParam) {
 		case 'p':
-			PrintLog("AtmosPhere lightPos = vec3(%f,%f,%f) , mie constant = %f", atmosphericScatteringShader->lightPos[0], atmosphericScatteringShader->lightPos[1], atmosphericScatteringShader->lightPos[2] , atmosphericScatteringShader->mie_constant);
+			PrintLog("AtmosPhere lightPos = vec3(%f,%f,%f)\n , mie constant = %f\n, rayleigh_constant = %f\n", atmosphericScatteringShader->lightPos[0], atmosphericScatteringShader->lightPos[1], atmosphericScatteringShader->lightPos[2] , atmosphericScatteringShader->mie_constant, atmosphericScatteringShader->rayleigh_constant);
 			break;
 		case 'u':
 			atmosphericScatteringShader->increaseLightPosition(0, 0.1);
@@ -74,12 +81,22 @@ void Scene::WndProcForSceneTwo(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lPara
 		case 'M':
 			atmosphericScatteringShader->increaseAndDecraseSunEmision(1, 0.001);
 			break;
+		case 'v':
+			atmosphericScatteringShader->rayleigh_constant += 0.001;
+			break;
+		case 'V':
+			atmosphericScatteringShader->rayleigh_constant-=0.001;
 			break;
 		}
 	}
 }
 
 int Scene::initialiseSceneSecond() {
+
+	// fbo initialization
+	fbo_scene_WithBloom = new FrameBufferWithDepth(FBO_WIDTH, FBO_HEIGHT);
+	if (fBufferShader->initializFBufferEffectShaderProgram() != 0)
+		return 1;
 	// Atmosphere Initialization
 	if (atmosphericScatteringShader->initializeAtmosphericScatteringProgram() == -1)
 		return -1;
@@ -103,14 +120,13 @@ int Scene::initialiseSceneSecond() {
 		return -1;
 	}
 	initializeStaticModel(&hut, "Media/Models/Hut/newHut.obj");
-	initializeStaticModel(&hut2, "Media/Models/hut3_new/textures/hut3_new.obj");
+	initializeStaticModel(&hut2, "Media/Models/hut3_new/textures/hut4_new.obj");
 	initializeStaticModel(&tree, "Media/Models/Hut/tree.obj");
 	initializeStaticModel(&kund, "Media/Models/vedicFire/vedicFire.obj");
 	initializeStaticModel(&chanakyaSit, "Media/Models/chanakya model/chanakya pray .obj");
 
 
 	//Water initialization start
-	fbos = new WaterFrameBuffers();
 	fbos->initialization_water();
 	textureManager->storeTextureFromFile("Media\\Textures\\Water", "waterDUDVmap.png");
 	textureManager->storeTextureFromFile("Media\\Textures\\Water", "waterNormalMap.png");
@@ -170,21 +186,21 @@ int Scene::initialiseSceneSecond() {
 	pitch.clear();
 
 
-	points.push_back({ 454.610107,10033.365234,182.469864 });
-	points.push_back({ 143.963242,10038.930664,8.196793 });
-	points.push_back({ -58.562290,10071.954102,185.159760 });
+	points.push_back({ 7.075944,10041.414062,-6.258910 });
+	points.push_back({ 14.457620,10054.901367,345.976 });
+	//points.push_back({ -58.562290,10071.954102,185.159760 });
 	//points.push_back({ -60.143433,10057.266602,157.501450 });
 
 
-	yaw.push_back(143.600494);
-	yaw.push_back(76.401085);
-	yaw.push_back(34.001118);
+	yaw.push_back(61.001251);
+	yaw.push_back(65.600159);
+	//yaw.push_back(34.001118);
 	//yaw.push_back(37.401318);
 
 
-	pitch.push_back(5.400011);
-	pitch.push_back(0.400035);
-	pitch.push_back(1.800052);
+	pitch.push_back(3.99996);
+	pitch.push_back(5.19998);
+	//pitch.push_back(1.800052);
 
 	bazierCameraForSceneSecondTwo->initialize();
 	bazierCameraForSceneSecondTwo->setBezierPoints(points, yaw, pitch);
@@ -195,10 +211,13 @@ int Scene::initialiseSceneSecond() {
 }
 void Scene::displaySceneSecond() {
 	mat4 modelMatrixArray[1];
+	mat4 modelMatrix = mat4::identity();
+	mat4 viewMatrix = mat4::identity();
+	vec3 camPos;
 
 	if (initCameraForSceneSecond == 0) {
 		initCameraForSceneSecond = 1;
-		freeCamera->position = vec3(182.445862,10000.0+17.948416, 243.554276);
+		freeCamera->position = vec3(182.445862, 10000.0 + 17.948416, 243.554276);
 		freeCamera->front = vec3(0.999458, 0.027922, 0.017446);
 		freeCamera->yaw = 1.000035;
 		freeCamera->updateCameraVectors();
@@ -206,12 +225,9 @@ void Scene::displaySceneSecond() {
 	if (initSongForSceneSecond == 0) {
 		if (AUDIO_ENABLE) {
 			initSongForSceneSecond = 1;
-			//playSong(1);
+			playSong(1);
 		}
 	}
-	mat4 modelMatrix = mat4::identity();
-	mat4 viewMatrix = mat4::identity();
-	vec3 camPos;
 	if (debugCamera)
 	{
 		viewMatrix = freeCamera->getViewMatrix();
@@ -230,73 +246,98 @@ void Scene::displaySceneSecond() {
 			camPos = bazierCameraForSceneSecondTwo->position;
 		}
 	}
-
-	modelMatrix = genrateModelMatrix(vec3(-300.001526, 10000.0f, -300.101318), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
-	terrainShader->useTerrainShaderProgram();
-	terrainShader->displayTerrainShader(terrainTextures, modelMatrix,viewMatrix, camPos,165, 1.35);
-	terrainShader->unUseTerrainShaderProgram();
-
-	modelMatrix = genrateModelMatrix(vec3(261.800140, 0.0, 269.100159), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
-	atmosphericScatteringShader->useGroundAtmosphericScatteringProgram();
-	atmosphericScatteringShader->displayGroundAtmosphericScatteringShader(modelMatrix,viewMatrix, camPos);
-	atmosphericScatteringShader->unUseGroundAtmosphericScatteringProgram();
-	atmosphericScatteringShader->useSkyAtmosphericScatteringProgram();
-	atmosphericScatteringShader->displaySkyAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
-	atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();
-
-	modelMatrixArray[0] = genrateModelMatrix(vec3(-65.6998+144.600739, 10000+ 63.49, 390.899), vec3(-2.400000, -203.401306, 1.800), vec3(0.5, 0.5, 0.5));
-	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
-	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
-	numOfPointLight = 2;
-	modelDirectionLightStruct.directionLight_Direction = vec3(204.299652,10000+ 30.599987, 320.398865);
-	objmodelLoadingShader->displayObjModelLoadingShader(&hut, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	modelMatrixArray[0] = genrateModelMatrix(vec3(502,10046,1054), vec3(0.0,-184.99,0.0), vec3(156,156,156));
-	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
-	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
-	numOfPointLight = 2;
-	modelDirectionLightStruct.directionLight_Direction = vec3(204.299652, 10000 + 30.599987, 320.398865);
-	objmodelLoadingShader->displayObjModelLoadingShader(&hut2, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-
-	modelMatrixArray[0] = genrateModelMatrix(vec3( 144.600739, 10000 + 86.100113,390.899),vec3(0.0,0.0,0.0), vec3(1.0,1.0,1.0));
-	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
-	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
-	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	modelMatrixArray[0] = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 +390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
-	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
-	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
-	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	modelMatrixArray[0] = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 40.899910, -15.699995 + 390.899),vec3(0.000000, -120.499992, 0.000000), vec3(9.600002, 9.600002, 9.600002));
-	modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
-	modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
-	numOfPointLight = 2;
-	objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrixArray, viewMatrix,1, MODEL_DIRECTIONLIGHT);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	modelMatrix = genrateModelMatrix(vec3(21.500874, 10061.689453, 368.001343), vec3(9.299999, -9.299999, -176.700027), vec3(9.032018, 9.032018, 9.032018));
-	fireShader->useFireShaderProgram();
-	fireShader->displayFireShader(modelMatrix, viewMatrix, textures->getTexture("alpha"), textures->getTexture("fire"), textures->getTexture("noise"));
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	renderes->renderQuad();
-	glDisable(GL_BLEND);
-
 	captureWaterReflectionAndRefractionForSecondScene();
-	modelMatrix = genrateModelMatrix(vec3(36.6 +313.600616, 10000+ 28.10, 47.69 +232.900238), vec3(0.0, 0.0, 0.0), vec3(710.0,0.0,710.0));
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	fbos->draw_water(textureManager->getTexture("fftDudv"), textureManager->getTexture("fftNormal"), modelMatrix, viewMatrix, camPos);
-	glDisable(GL_BLEND);
 
+	//Render to framebuffer
+	fbo_scene_WithBloom->start();
+	//glBindFramebuffer(GL_FRAMEBUFFER, testFrameBuffer.fbo);
+	{
+		//resizeFBO(FBO_WIDTH, FBO_HEIGHT);
+		glClearColor(0.13f, 0.21f, 0.32f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//////////////////////////////////
+
+		modelMatrix = genrateModelMatrix(vec3(-300.001526, 10000.0f, -300.101318), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+		terrainShader->useTerrainShaderProgram();
+		terrainShader->displayTerrainShader(terrainTextures, modelMatrix, viewMatrix, camPos, 165, 1.35);
+		terrainShader->unUseTerrainShaderProgram();
+
+		modelMatrix = genrateModelMatrix(vec3(261.800140, 0.0, 269.100159), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+		atmosphericScatteringShader->useGroundAtmosphericScatteringProgram();
+		atmosphericScatteringShader->displayGroundAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
+		atmosphericScatteringShader->unUseGroundAtmosphericScatteringProgram();
+		atmosphericScatteringShader->useSkyAtmosphericScatteringProgram();
+		atmosphericScatteringShader->displaySkyAtmosphericScatteringShader(modelMatrix, viewMatrix, camPos);
+		atmosphericScatteringShader->unUseSkyAtmosphericScatteringProgram();
+
+		modelMatrixArray[0] = genrateModelMatrix(vec3(-65.6998 + 144.600739, 10000 + 63.49, 390.899), vec3(-2.400000, -203.401306, 1.800), vec3(0.5, 0.5, 0.5));
+		modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+		modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+		numOfPointLight = 2;
+		modelDirectionLightStruct.directionLight_Direction = vec3(204.299652, 10000 + 30.599987, 320.398865);
+		objmodelLoadingShader->displayObjModelLoadingShader(&hut, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		modelMatrixArray[0] = genrateModelMatrix(vec3(502, 10046, 1054), vec3(0.0, -184.99, 0.0), vec3(156, 156, 156));
+		modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+		modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+		numOfPointLight = 2;
+		modelDirectionLightStruct.directionLight_Direction = vec3(204.299652, 10000 + 30.599987, 320.398865);
+		objmodelLoadingShader->displayObjModelLoadingShader(&hut2, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+
+		modelMatrixArray[0] = genrateModelMatrix(vec3(144.600739, 10000 + 86.100113, 390.899), vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
+		modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+		modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+		numOfPointLight = 2;
+		objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		modelMatrixArray[0] = genrateModelMatrix(vec3(-122.89 + 144.600739, 10000 + 49.499931, -22.399973 + 390.899), vec3(-1.600000, -24.000004, 0.000000), vec3(8.200002, 8.200002, 8.200002));
+		modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+		modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+		numOfPointLight = 2;
+		objmodelLoadingShader->displayObjModelLoadingShader(&kund, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		modelMatrixArray[0] = genrateModelMatrix(vec3(-108.900314 + 144.600739, 10000 + 40.899910, -15.699995 + 390.899), vec3(0.000000, -120.499992, 0.000000), vec3(9.600002, 9.600002, 9.600002));
+		modelPointLightStruct[0].pointLight_position = vec3(3.000000, -0.900000, 8.100003);
+		modelPointLightStruct[1].pointLight_position = transformationVector.translationVector;
+		numOfPointLight = 2;
+		objmodelLoadingShader->displayObjModelLoadingShader(&chanakyaSit, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		modelMatrix = genrateModelMatrix(vec3(21.500874, 10061.689453, 368.001343), vec3(9.299999, -9.299999, -176.700027), vec3(9.032018, 9.032018, 9.032018));
+		fireShader->useFireShaderProgram();
+		fireShader->displayFireShader(modelMatrix, viewMatrix, textures->getTexture("alpha"), textures->getTexture("fire"), textures->getTexture("noise"));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		renderes->renderQuad();
+		glDisable(GL_BLEND);
+		fireShader->unUseFireShaderProgram();
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		modelMatrix = genrateModelMatrix(vec3(36.6 + 313.600616, 10000 + 28.10, 47.69 + 232.900238), vec3(0.0, 0.0, 0.0), vec3(710.0, 0.0, 710.0));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		fbos->draw_water(textureManager->getTexture("fftDudv"), textureManager->getTexture("fftNormal"), modelMatrix, viewMatrix, camPos);
+		glDisable(GL_BLEND);
+
+		///////////////////////////////////////////////////////////////////
+		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+	fbo_scene_WithBloom->end();
+
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glViewport(0, 0, gWinWidth, gWinHeight);
+
+	fBufferShader->useFBufferEffectShaderProgram();
+	fBufferShader->displayFBufferEffectShader(mat4::identity(), mat4::identity(), fbo_scene_WithBloom->colorTexture, 1.0, 0.5, FBMTime, 2);
+	renderes->renderQuad();
+	fBufferShader->unUseFBufferEffectShaderProgram();
+	glBindTexture(GL_TEXTURE_2D, 0);
 	/*modelMatrix = genrateModelMatrix(transformationVector.translationVector, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0));
 	textureShader->useTextureShaderProgram();
 	textureShader->displayTextureShader(modelMatrix, viewMatrix, textures->getTexture("Stone"), 0);
@@ -305,25 +346,26 @@ void Scene::displaySceneSecond() {
 
 
 
-	fireShader->unUseFireShaderProgram();
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
 void Scene::updateSceneSecond() {
+	FBMTime = FBMTime + 0.04f;
+
 	fireShader->setFrameTime(0.001);
 	if (!debugCamera)
 	{
 		if (bazierCameraForSceneSecond->time < 1.0f) {
-			bazierCameraForSceneSecond->time += 0.0002f;
+			bazierCameraForSceneSecond->time += 0.0003f;
 			bazierCameraForSceneSecond->update();
 		}
-		/*else
+		else
 		{
 			camNum = 1;
 			if (bazierCameraForSceneSecondTwo->time < 1.0f) {
-				bazierCameraForSceneSecondTwo->time += 0.0003f;
+				bazierCameraForSceneSecondTwo->time += 0.0015f;
 				bazierCameraForSceneSecondTwo->update();
 			}
-		}*/
+		}
 	}
 }
 void Scene::unitializeSceneSecond() {
@@ -443,8 +485,6 @@ void captureWaterReflectionAndRefractionForSecondScene()
 	modelMatrix = genrateModelMatrix(vec3(21.500874, 10061.689453, 368.001343), vec3(9.299999, -9.299999, -176.700027), vec3(9.032018, 9.032018, 9.032018));
 	fireShader->useFireShaderProgram();
 	fireShader->displayFireShader(modelMatrix, viewMatrix, textures->getTexture("alpha"), textures->getTexture("fire"), textures->getTexture("noise"));
-	renderes->renderQuad();
-
 	renderes->renderQuad();
 
 	// ------------------------------ Refraction------------------------------------------

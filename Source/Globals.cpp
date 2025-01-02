@@ -17,7 +17,7 @@ const char gszLogFileName[] = "CustomLog.txt";
 mat4 prespectiveProjectionMatrix;
 
 //Scene number tracking varaiable
-int currentSceneNumber = 6;
+int currentSceneNumber =4;
 bool debugCamera = false;
 
 float gWinWidth;
@@ -25,12 +25,13 @@ float gWinHeight;
 
 //transformation vector
 TransformationVector transformationVector;
+bool cameraReset = false;
 
 std::vector<TransformationVector>transformationVectorArray; ///for storng  ttested dynamic loading of single model
 
 Camera* freeCamera;
 
-struct PointLight modelPointLightStruct[10];
+struct PointLight modelPointLightStruct[20];
 int numOfPointLight;
 struct DirectionLight modelDirectionLightStruct;
 

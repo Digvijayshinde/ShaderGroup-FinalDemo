@@ -13,6 +13,13 @@ int ObjModelLoadingShader::initializeObjModelLoadingShaderProgram() {
 	return 0;
 
 }
+void ObjModelLoadingShader::useObjModelLoadingShaderProgram() {
+	shaderProgramObject.useProgram();
+}
+
+void ObjModelLoadingShader::unUseObjModelLoadingShaderProgram() {
+	shaderProgramObject.unUseProgram();
+}
 
 void ObjModelLoadingShader::displayObjModelLoadingShader(StaticModel* staticModel, mat4* modelMatrix, mat4 viewMatrix, int instanceCount, int modelEffectType)
 {
@@ -21,7 +28,6 @@ void ObjModelLoadingShader::displayObjModelLoadingShader(StaticModel* staticMode
 
 	//Common 
 	shaderProgramObject.setMat4("u_modelMatrix", *(&modelMatrix[0]), instanceCount);
-	//glUniformMatrix4fv(glGetUniformLocation(shaderProgramObject.getShaderProgramObject(), "u_modelMatrix"), instanceCount, GL_FALSE, (GLfloat*)(&modelMatrix[0]));
 	shaderProgramObject.setMat4("u_viewMatrix", viewMatrix);
 	shaderProgramObject.setMat4("u_projectionMatrix", prespectiveProjectionMatrix);
 	shaderProgramObject.setInt("u_effectType", modelEffectType);
@@ -48,6 +54,10 @@ void ObjModelLoadingShader::displayObjModelLoadingShader(StaticModel* staticMode
 	shaderProgramObject.setVec3("directionLight_diffuse", modelDirectionLightStruct.directionLight_diffuse);
 	shaderProgramObject.setVec3("directionLight_specular", modelDirectionLightStruct.directionLight_specular);
 	shaderProgramObject.setFloat("directionLight_shininess", modelDirectionLightStruct.directionLight_shininess);
+
+	// God rays
+	shaderProgramObject.setInt("enableGodRays", enableGodRays);
+	shaderProgramObject.setInt("isColor_godRays", isColor_godRays);
 
 	staticModel->model->Draw(shaderProgramObject.getShaderProgramObject(), instanceCount);
 	shaderProgramObject.unUseProgram();

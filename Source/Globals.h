@@ -65,7 +65,7 @@ public:
 #define ENABLE_MODEL_PLACING 0
 #define SCENE_RENDER 1
 #define TEST_RENDER 0
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 #define AUDIO_ENABLE 1
 #define ALL_SCENE_RENDER 0
 
@@ -122,7 +122,7 @@ struct PointLight {
 		pointLight_quadratic = 0.03f;
 	}
 };
-extern struct PointLight modelPointLightStruct[10];
+extern struct PointLight modelPointLightStruct[20];
 extern  int numOfPointLight;
 
 struct DirectionLight {
@@ -182,7 +182,18 @@ enum OpenGLLockFlags
 		x = 0; }
 
 extern Camera* freeCamera;
+extern bool cameraReset;
 
 void resize(int width, int height);
 
+//FPS macros
+#define ENABLE_FPS_LOCK 1
+#define DESIRED_FPS 60
 
+enum {
+	NO_FADEIN_FADEOUT,
+	FADE_IN,
+	FADE_OUT,
+};
+
+void setBlendingMode(int mode, float fadeinFadeOutSpeed = 0.002f);

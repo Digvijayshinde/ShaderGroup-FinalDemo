@@ -65,7 +65,7 @@ void Scene::displaySceneFirst() {
 	if (initSongForSceneSecond == 0) {
 		if (AUDIO_ENABLE) {
 			initSongForSceneSecond = 1;
-			playSong(1);
+			//playSong(1);
 		}
 	}
 	//modelMatrix = genrateModelMatrix(transformationVector.translationVector, transformationVector.rotationVector, transformationVector.scaleVector);

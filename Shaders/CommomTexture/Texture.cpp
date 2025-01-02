@@ -18,7 +18,9 @@ void TextureShader ::displayTextureShader(mat4 modelMatrix ,mat4 viewMatrix,GLui
 	shaderProgramObject.setMat4("u_viewMatrix", viewMatrix);
 	shaderProgramObject.setMat4("u_projectionMatrix", prespectiveProjectionMatrix);
 	shaderProgramObject.setInt("isFullScreen", isFullScreen);
-
+	// God rays
+	shaderProgramObject.setInt("enableGodRays", enableGodRays);
+	shaderProgramObject.setInt("isColor_godRays", isColor_godRays);
 	//activating texture 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureId);

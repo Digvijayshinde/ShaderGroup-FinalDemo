@@ -70,7 +70,7 @@ void resizeFBO(int width, int height)
 
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 
-	prespectiveProjectionMatrix = vmath::perspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 10000.0f);
+	prespectiveProjectionMatrix = vmath::perspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 50000.0f);
 }
 
 //FramebufferWithDepth* GenerateFrameBufferObject(

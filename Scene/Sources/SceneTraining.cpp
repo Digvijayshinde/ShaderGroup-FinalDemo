@@ -5,15 +5,14 @@
 #include "../../Shaders/CommomTexture/Texture.h"
 #include "../../Utility/Headers/AudioPlayer.h"
 #include "../../../Utility/Headers/BezierCamera.h"
-#include "vector"
 #include"../../Shaders/Fire/Fire.h"
 #include "../../Shaders/Terrain/Terrain.h"
+#include "../../Shaders/CubeMap/CubeMap.h"
 
 static TextureShader* textureShader = new TextureShader();
 static FireShader* fireShader = new FireShader();
 
 static ObjModelLoadingShader* objmodelLoadingShader = new ObjModelLoadingShader();;
-
 static int initCameraForSceneTraining = 0;
 static int initSongForSceneTraining = 0;
 
@@ -22,46 +21,62 @@ static BezierCamera* bazierCameraForSceneTrainingTwo = new BezierCamera();
 
 static TextureManager* textures = new TextureManager();
 static TextureManager* terrainTextures = new TextureManager();
-
-static StaticModel corridor;
-static StaticModel smallCity;
-
-extern StaticModel chanakyaStanding;
 static TerrainShader* terrainShader = new TerrainShader();
 
+static StaticModel seat;
+extern StaticModel tree;
+static StaticModel chandragupta;
+extern StaticModel chanakyaStanding;
+
 static int camNum = 0;
+
+static CubeMapShader* cubeMapShader = new CubeMapShader();
+static unsigned int cubemapTexture;
+
+static std::vector<std::string> facesCubeMap
+{
+	"Media\\Textures\\CubemapMeet\\right.jpg",
+	"Media\\Textures\\CubemapMeet\\left.jpg",
+	"Media\\Textures\\CubemapMeet\\up.jpg",
+	"Media\\Textures\\CubemapMeet\\down.jpg",
+	"Media\\Textures\\CubemapMeet\\front.jpg",
+	"Media\\Textures\\CubemapMeet\\back.jpg"
+};
+
 
 void Scene::WndProcForSceneTraining(HWND hwnd, UINT imsg, WPARAM wParam, LPARAM lParam) {
 	//code
 }
 
 int Scene::initialiseSceneTraining() {
-	TextureManager textureManager;
 
 	// Atmosphere Initialization
 	if (objmodelLoadingShader->initializeObjModelLoadingShaderProgram() != 0) {
 		return -1;
 	}
-	initializeStaticModel(&corridor, "Media/Models/01- Ancient.Corridor/corridor_room.obj");
-	initializeStaticModel(&smallCity, "Media/Models/smallCity/base.obj");
+	initializeStaticModel(&seat, "Media/Models/chanakya_chandra_Meet/seat.obj");
+	initializeStaticModel(&chandragupta, "Media/Models/chanakya_chandra_Meet/ChotaChandraModel.obj");
 
-	textures->storeTextureFromFile("Media\\Textures\\Test", "Stone.bmp", ID_BITMAP_STONE);
-
-	// Fire
-	if (fireShader->initializeFireShaderProgram() == -1)
-		return -1;
-	//clipping is requid for fire 
-	isDDSTextureClipped = true;
-	textures->storeTextureFromFile("Media\\Textures\\Fire", "fire.dds");
-	textures->storeTextureFromFile("Media\\Textures\\Fire", "alpha.dds");
-	isDDSTextureClipped = false;
-	textures->storeTextureFromFile("Media\\Textures\\Fire", "noise.dds");
+	initializeStaticModel(&tree, "Media/Models/Hut/tree.obj");
+	//initializeStaticModel(&chanakyaStanding, "Media/Models/chanakya model/chanakya holding stick.obj");
 
 	//Bazier
 	std::vector<std::vector<float>> points;
 	points.push_back({ -205.302231,7.018716,-0.431156 });
 	points.push_back({ 0.060963,16.606358,-0.985229 });
 	points.push_back({ 128.540955,19.813559,11.39737 });
+
+	// Cubemap
+	if (cubeMapShader->initializeCubeMapShaderProgram() != 0) {
+		return -1;
+	}
+	cubemapTexture = textures->loadCubeMapTexture(facesCubeMap);
+
+	// texture model
+	if (textureShader->initializeTextureShaderProgram() != 0) {
+		return -1;
+	}
+	textures->storeTextureFromFile("Media\\Textures\\Test", "Stone.bmp", ID_BITMAP_STONE);
 
 	// texture model
 	if (textureShader->initializeTextureShaderProgram() != 0) {
@@ -102,6 +117,21 @@ int Scene::initialiseSceneTraining() {
 	bazierCameraForSceneTrainingTwo->initialize();
 	bazierCameraForSceneTrainingTwo->setBezierPoints(points, yaw, pitch);
 	bazierCameraForSceneTrainingTwo->time = 0;
+
+	// Terrain initialization
+	if (terrainShader->initializeTerrainShaderProgram("Media\\Textures\\Terrain\\heightmap.png") != 0) {
+		return -1;
+	}
+	else
+	{
+		fprintf(gpFile, "initialize initializeTerrainShaderProgram\n");
+	}
+	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "splat.png");
+	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "grass5.png");
+	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "grass_normal.png");
+	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "rock.png");
+	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "rock_normal.png");
+	terrainTextures->storeTextureFromFile("Media\\Textures\\Terrain", "NormalMap.png");
 
 	return 0;
 }
@@ -145,24 +175,43 @@ void Scene::displaySceneTraining() {
 		}
 	}
 
-	modelDirectionLightStruct.directionLight_Direction = vec3(0.600739, 50.00, 0.899);
-	modelMatrixArray[0] = genrateModelMatrix(vec3(78.50, 10.60, -2.30), vec3(-2.400000, -0.200000, 0.00), vec3(4.80, 4.80, 4.80));
-	objmodelLoadingShader->displayObjModelLoadingShader(&smallCity, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	modelDirectionLightStruct.directionLight_Direction = vec3(0.600739, 50.00, 0.899);
-	modelMatrixArray[0] = genrateModelMatrix(vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0), vec3(5.900005, 5.900005, 5.90000));
-	objmodelLoadingShader->displayObjModelLoadingShader(&corridor, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+	modelDirectionLightStruct.directionLight_Direction = vec3(-50.600739, 50.00, 100.899);
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-52.199917, -1.200000, 94.50), vec3(0.600000, -171.000977, 0.00), vec3(12.700005, 12.700005, 12.700005));
+	//modelMatrixArray[0] = genrateModelMatrix(vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0), vec3(5.900005, 5.900005, 5.90000));
+	objmodelLoadingShader->displayObjModelLoadingShader(&seat, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 
-	modelMatrix = genrateModelMatrix(vec3(-155, 25.30, -12.40), vec3(0.00, 70.799911, -183.599838), vec3(1.80));
-	fireShader->useFireShaderProgram();
-	fireShader->displayFireShader(modelMatrix, viewMatrix, textures->getTexture("alpha"), textures->getTexture("fire"), textures->getTexture("noise"));
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	renderes->renderQuad();
-	glDisable(GL_BLEND);
+	modelDirectionLightStruct.directionLight_Direction = vec3(-50.600739, 50.00, 100.899);
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-52.199917, -1.200000, 94.50), vec3(0.600000, -171.000977, 0.00), vec3(12.700005, 12.700005, 12.700005));
+	//modelMatrixArray[0] = genrateModelMatrix(vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0), vec3(5.900005, 5.900005, 5.90000));
+	objmodelLoadingShader->displayObjModelLoadingShader(&chandragupta, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	modelDirectionLightStruct.directionLight_Direction = vec3(-50.600739, 50.00, 100.899);
+	modelMatrixArray[0] = genrateModelMatrix(vec3(-42.700001, 14.000002, 86.700), vec3(0.600000, 0.0, 0.00), vec3(0.400, 0.400, 0.400));
+	//modelMatrixArray[0] = genrateModelMatrix(vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0), vec3(5.900005, 5.900005, 5.90000));
+	objmodelLoadingShader->displayObjModelLoadingShader(&tree, modelMatrixArray, viewMatrix, 1, MODEL_DIRECTIONLIGHT);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	terrainShader->useTerrainShaderProgram();
+	terrainShader->lightPos = vec3(0.0, 0.0, 0.0);
+	modelMatrix = genrateModelMatrix(transformationVector.translationVector, transformationVector.rotationVector, vec3(1.0,1.0,1.0));
+	terrainShader->displayTerrainShader(terrainTextures, modelMatrix, viewMatrix, camPos, transformationVector.scaleVector[0], transformationVector.scaleVector[1]);
+	terrainShader->unUseTerrainShaderProgram();
+
+	//terrainShader->useTerrainShaderProgram();
+	//terrainShader->lightPos = vec3(0.0, 0.0, 0.0);
+	//modelMatrix = genrateModelMatrix(vec3(319.600006, -2.599983, 597.000732), vec3(0.000000, -171.000061, 0.000000), vec3(1.0));
+	//terrainShader->displayTerrainShader(terrainTextures, modelMatrix, viewMatrix, camPos, 41.699921, 0.60000);
+	//terrainShader->unUseTerrainShaderProgram();
+
+	modelMatrix = genrateModelMatrix(vec3(0.0), vec3(0.0, -200.0, 0.0), vec3(500.0, 500.0, 500.0));
+	cubeMapShader->useCubeMapShaderProgram();
+	cubeMapShader->displayCubeMapShader(cubemapTexture, modelMatrix, viewMatrix);
+	renderes->renderCube();
+	cubeMapShader->unUseCubeMapShaderProgram();
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 }
 void Scene::updateSceneTraining() {

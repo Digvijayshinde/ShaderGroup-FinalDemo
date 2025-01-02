@@ -87,7 +87,9 @@ void main()
 	//specular = pow(specular, shineDmper);
 	vec3 specularHighlights = lightColor * specular * reflectivity * clamp(waterDepth/5.0f,0.0f,1.0f);
 
-	vec3 baseWaterColor = vec3(0.0, 0.3, 0.6); // Parameterize for flexibility
+	vec3 baseWaterColor = vec3(0.3, 0.15, 0.1); // Parameterize for flexibility
+	//vec3 baseWaterColor = vec3(0.5, 0.7, 0.8); // Parameterize for flexibility
+
 	vec4 waterMixColor = mix(texColorReflection, texColorRefraction, 0.2);
 	waterMixColor.rgb = mix(waterMixColor.rgb, baseWaterColor, 0.2);
 	waterMixColor.rgb += specularHighlights;
